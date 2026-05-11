@@ -1,7 +1,5 @@
 # Unsia Android Project
 
-Project ini adalah kumpulan tugas mata kuliah Pemrograman Bergerak (Android) di Universitas Siber Asia.
-
 ## 📌 Update Terbaru: Pertemuan 4 (Validation, Dashboard & Implicit Intent)
 Pada pertemuan ini, fokus utama adalah penguatan logika aplikasi melalui validasi input, pembuatan Dashboard profesional, dan penggunaan Implicit Intent.
 
