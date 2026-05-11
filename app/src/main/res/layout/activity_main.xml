@@ -33,7 +33,7 @@
                 android:layout_marginTop="20dp"
                 android:src="@drawable/img_login" />
 
-            <!-- Baris Username -->
+            <!-- Baris Nama Lengkap (Display Name) -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -44,13 +44,39 @@
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
+                    android:text="@string/label_nama_display"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/etDisplayName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_nama_display"
+                    android:importantForAutofill="no"
+                    android:inputType="textPersonName" />
+            </LinearLayout>
+
+            <!-- Baris Username -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
                     android:text="Username"
                     android:textSize="18sp" />
 
                 <EditText
+                    android:id="@+id/etUsername"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Admin" />
+                    android:hint="Admin"
+                    android:importantForAutofill="no"
+                    android:inputType="text" />
             </LinearLayout>
 
             <!-- Baris Password -->
@@ -68,9 +94,11 @@
                     android:textSize="18sp" />
 
                 <EditText
+                    android:id="@+id/etPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="....."
+                    android:importantForAutofill="no"
                     android:inputType="textPassword" />
             </LinearLayout>
 

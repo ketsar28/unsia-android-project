@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Unsia Android Project</string>
     <string name="teksLogin">FORM LOGIN</string>
+    <string name="label_nama_display">Nama</string>
+    <string name="hint_nama_display">Masukkan nama anda</string>
 
     <!-- Register -->
     <string name="title_register">BUAT AKUN BARU</string>
@@ -27,4 +29,8 @@
     <string name="label_hasil_nilai">NILAI AKHIR</string>
     <string name="format_umur">%s Tahun</string>
     <string name="btn_kembali">KEMBALI KE INPUT</string>
+    <string name="welcome_message">Selamat Datang,\n%s</string>
+    <string name="error_empty_fields">Harap isi semua kolom!</string>
+    <string name="error_invalid_login">Username atau Password salah!</string>
+    <string name="login_success">Login Berhasil sebagai %s</string>
 </resources>
