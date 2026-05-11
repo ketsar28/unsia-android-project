@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Latihan Sesi 2 Pemrograman Bergerak</string>
+    <string name="login_header">Form Login</string>
+    <string name="teksLogin">FORM LOGIN</string>
+</resources>

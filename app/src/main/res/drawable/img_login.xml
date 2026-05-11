@@ -1,0 +1,23 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="200"
+    android:viewportHeight="200">
+    <!-- Lingkaran Background -->
+    <path
+        android:pathData="M100,100m-100,0a100,100 0,1 1,200 0a100,100 0,1 1,-200 0"
+        android:fillColor="#F3F4F6"/>
+    <!-- Bayangan Bahu -->
+    <path
+        android:pathData="M100,115c-35,0 -65,18 -75,45c18,25 45,40 75,40s57,-15 75,-40c-10,-27 -40,-45 -75,-45z"
+        android:fillColor="#E5E7EB"/>
+    <!-- Kepala -->
+    <path
+        android:pathData="M100,105m-35,0a35,35 0,1 1,70 0a35,35 0,1 1,-70 0"
+        android:fillColor="#6366F1"/>
+    <!-- Badan -->
+    <path
+        android:pathData="M100,195c-30,0 -56,-14 -72,-35c3,-25 30,-45 72,-45s69,20 72,45c-16,21 -42,35 -72,35z"
+        android:fillColor="#4F46E5"/>
+</vector>
