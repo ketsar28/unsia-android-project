@@ -3,6 +3,7 @@ package com.example.pertemuan_2;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,13 +11,13 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class MainActivity extends AppCompatActivity {
+public class Register extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_register);
         
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -24,19 +25,16 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        Button btnLogin = findViewById(R.id.btnLogin);
-        Button btnRegister = findViewById(R.id.btnRegister);
+        Button btnDoRegister = findViewById(R.id.btnDoRegister);
+        Button btnBackToLogin = findViewById(R.id.btnBackToLogin);
 
-        // Navigasi ke Halaman Biodata (Anggap sebagai simulasi login berhasil)
-        btnLogin.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, Biodata.class);
-            startActivity(intent);
+        btnDoRegister.setOnClickListener(v -> {
+            Toast.makeText(this, "Pendaftaran Berhasil!", Toast.LENGTH_SHORT).show();
+            finish(); // Kembali ke login
         });
 
-        // Navigasi ke Halaman Register
-        btnRegister.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, Register.class);
-            startActivity(intent);
+        btnBackToLogin.setOnClickListener(v -> {
+            finish(); // Menutup activity ini dan kembali ke activity sebelumnya (Login)
         });
     }
 }

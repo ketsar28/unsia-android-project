@@ -1,5 +1,30 @@
 <resources>
-    <string name="app_name">Latihan Sesi 2 Pemrograman Bergerak</string>
-    <string name="login_header">Form Login</string>
+    <string name="app_name">Unsia Android Project</string>
     <string name="teksLogin">FORM LOGIN</string>
+
+    <!-- Register -->
+    <string name="title_register">BUAT AKUN BARU</string>
+    <string name="hint_nama">Nama Lengkap</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="btn_register">DAFTAR SEKARANG</string>
+    <string name="btn_back_to_login">Sudah punya akun? Login</string>
+
+    <!-- Biodata Input -->
+    <string name="title_input_biodata">Input Biodata</string>
+    <string name="label_nama">Nama Lengkap</string>
+    <string name="label_umur">Umur</string>
+    <string name="label_nilai">Nilai</string>
+    <string name="hint_input_nama">Masukkan nama anda</string>
+    <string name="hint_input_umur">Contoh: 20</string>
+    <string name="hint_input_nilai">Masukkan nilai (0-100)</string>
+    <string name="btn_kirim_data">KIRIM DATA</string>
+
+    <!-- Tampil Biodata -->
+    <string name="title_hasil_biodata">Hasil Biodata</string>
+    <string name="label_hasil_nama">NAMA LENGKAP</string>
+    <string name="label_hasil_umur">UMUR</string>
+    <string name="label_hasil_nilai">NILAI AKHIR</string>
+    <string name="format_umur">%s Tahun</string>
+    <string name="btn_kembali">KEMBALI KE INPUT</string>
 </resources>
