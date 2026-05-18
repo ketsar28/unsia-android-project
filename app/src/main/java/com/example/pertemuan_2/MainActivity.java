@@ -1,6 +1,7 @@
 package com.example.pertemuan_2;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,7 +17,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
 
-    private EditText etDisplayName, etUsername, etPassword;
+    private EditText etUsername, etPassword;
     private RadioGroup rgRole;
 
     @Override
@@ -32,56 +33,63 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // 1. Inisialisasi View
-        etDisplayName = findViewById(R.id.etDisplayName);
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
         rgRole = findViewById(R.id.rgRole);
         Button btnLogin = findViewById(R.id.btnLogin);
         Button btnRegister = findViewById(R.id.btnRegister);
 
-        // 2. Aksi Tombol Login dengan Validasi
+        // 2. Aksi Tombol Login
         btnLogin.setOnClickListener(v -> {
-            String displayName = etDisplayName.getText().toString().trim();
-            String username = etUsername.getText().toString().trim();
-            String password = etPassword.getText().toString().trim();
+            String usernameInput = etUsername.getText().toString().trim();
+            String passwordInput = etPassword.getText().toString().trim();
             
             int selectedId = rgRole.getCheckedRadioButtonId();
             RadioButton rbSelected = findViewById(selectedId);
-            String role = rbSelected.getText().toString();
+            String role = (rbSelected != null) ? rbSelected.getText().toString() : "";
 
-            // VALIDASI 1: Cek apakah ada kolom yang kosong
-            if (displayName.isEmpty() || username.isEmpty() || password.isEmpty()) {
-                Toast.makeText(this, getString(R.string.error_empty_fields), Toast.LENGTH_SHORT).show();
+            // VALIDASI: Cek field kosong
+            if (usernameInput.isEmpty() || passwordInput.isEmpty()) {
+                Toast.makeText(this, getString(R.string.msg_error_empty), Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            // VALIDASI 2: Cek Kredensial (Username & Password) sesuai Role
-            boolean isValid = false;
-
-            if (role.equalsIgnoreCase("Admin")) {
-                // Default Admin: admin / admin123
-                if (username.equals("admin") && password.equals("admin123")) {
-                    isValid = true;
+            if (role.equalsIgnoreCase(getString(R.string.label_admin))) {
+                // CASE 1: Login Admin (Static)
+                if (usernameInput.equals("admin") && passwordInput.equals("admin123")) {
+                    Toast.makeText(this, getString(R.string.msg_login_success_admin), Toast.LENGTH_SHORT).show();
+                    
+                    Intent intent = new Intent(MainActivity.this, Dashboard.class);
+                    intent.putExtra("EXTRA_USERNAME", "Administrator");
+                    intent.putExtra("EXTRA_ROLE", getString(R.string.label_role_admin));
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Toast.makeText(this, getString(R.string.msg_error_wrong_creds), Toast.LENGTH_SHORT).show();
                 }
             } else {
-                // Default User: user / user123
-                if (username.equals("user") && password.equals("user123")) {
-                    isValid = true;
-                }
-            }
+                // CASE 2: Login Pengguna Biasa (Cek SharedPreferences)
+                SharedPreferences sharedPref = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+                String regUsername = sharedPref.getString("registered_username", null);
+                String regPassword = sharedPref.getString("registered_password", null);
+                String regName = sharedPref.getString("registered_name", "User");
 
-            if (isValid) {
-                // Jika Valid: Masuk ke Dashboard dengan membawa Nama Display Dinamis
-                Toast.makeText(this, String.format(getString(R.string.login_success), role), Toast.LENGTH_SHORT).show();
-                
-                Intent intent = new Intent(MainActivity.this, Dashboard.class);
-                intent.putExtra("EXTRA_USERNAME", displayName); // Nama dari input user
-                intent.putExtra("EXTRA_ROLE", role);
-                startActivity(intent);
-                finish(); 
-            } else {
-                // Jika Gagal: Tampilkan pesan error
-                Toast.makeText(this, getString(R.string.error_invalid_login), Toast.LENGTH_SHORT).show();
+                if (regUsername == null) {
+                    // Belum ada data registrasi
+                    Toast.makeText(this, getString(R.string.msg_error_no_user), Toast.LENGTH_LONG).show();
+                } else if (usernameInput.equals(regUsername) && passwordInput.equals(regPassword)) {
+                    // Login Berhasil
+                    Toast.makeText(this, String.format(getString(R.string.msg_login_success_user), regName), Toast.LENGTH_SHORT).show();
+                    
+                    Intent intent = new Intent(MainActivity.this, Dashboard.class);
+                    intent.putExtra("EXTRA_USERNAME", regName); // Nama dari hasil register
+                    intent.putExtra("EXTRA_ROLE", getString(R.string.label_role_user));
+                    startActivity(intent);
+                    finish();
+                } else {
+                    // Username/Password salah
+                    Toast.makeText(this, getString(R.string.msg_error_wrong_creds), Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

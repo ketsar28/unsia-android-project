@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8F9FA"
+    android:background="@color/bg_light_green"
     tools:context=".Dashboard">
 
     <!-- 1. Header Section -->
@@ -13,7 +13,7 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="180dp"
-        android:background="@color/purple"
+        android:background="@color/primary_green"
         android:gravity="center"
         android:orientation="vertical"
         android:padding="20dp">
@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Selamat Datang,\nAdmin"
+            android:text="@string/label_welcome"
             android:textColor="@color/white"
             android:textSize="22sp"
             android:textStyle="bold" />
@@ -33,8 +33,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="Administrator"
-            android:textColor="#E0E0E0"
+            android:text="@string/label_role_admin"
+            android:textColor="@color/surface_green"
             android:textSize="14sp" />
     </LinearLayout>
 
@@ -50,7 +50,7 @@
         android:baselineAligned="false">
 
         <LinearLayout
-            android:id="@+id/btnHome"
+            android:id="@+id/btnNavHome"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -60,22 +60,24 @@
             android:gravity="center"
             android:orientation="vertical">
             <ImageView
+                android:id="@+id/ivNavHome"
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:src="@android:drawable/ic_menu_today"
-                app:tint="@color/purple"
-                android:contentDescription="Home" />
+                app:tint="@color/primary_green"
+                android:contentDescription="@string/desc_home" />
             <TextView
+                android:id="@+id/tvNavHome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Home"
-                android:textColor="@color/purple"
+                android:text="@string/label_home"
+                android:textColor="@color/primary_green"
                 android:textSize="12sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/btnSearch"
+            android:id="@+id/btnNavSearch"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -85,21 +87,23 @@
             android:gravity="center"
             android:orientation="vertical">
             <ImageView
+                android:id="@+id/ivNavSearch"
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:src="@android:drawable/ic_menu_search"
-                app:tint="#757575"
-                android:contentDescription="Search" />
+                app:tint="@color/text_secondary"
+                android:contentDescription="@string/desc_search" />
             <TextView
+                android:id="@+id/tvNavSearch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Search"
-                android:textColor="#757575"
+                android:text="@string/label_search"
+                android:textColor="@color/text_secondary"
                 android:textSize="12sp" />
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/btnProfile"
+            android:id="@+id/btnNavProfile"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -109,21 +113,23 @@
             android:gravity="center"
             android:orientation="vertical">
             <ImageView
+                android:id="@+id/ivNavProfile"
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:src="@android:drawable/ic_menu_myplaces"
-                app:tint="#757575"
-                android:contentDescription="Profile" />
+                app:tint="@color/text_secondary"
+                android:contentDescription="@string/desc_profile" />
             <TextView
+                android:id="@+id/tvNavProfile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Profile"
-                android:textColor="#757575"
+                android:text="@string/label_profile"
+                android:textColor="@color/text_secondary"
                 android:textSize="12sp" />
         </LinearLayout>
     </LinearLayout>
 
-    <!-- 3. Scrollable Content -->
+    <!-- 3. Scrollable Content Containers -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -133,294 +139,529 @@
         android:fillViewport="true"
         android:scrollbars="vertical">
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="20dp"
-            android:paddingBottom="100dp">
+            android:padding="20dp">
 
-            <!-- Card Utama Form Input -->
-            <com.google.android.material.card.MaterialCardView
+            <!-- HOME CONTAINER -->
+            <LinearLayout
+                android:id="@+id/containerHome"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardBackgroundColor="#FFFFFF"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="6dp"
-                app:strokeWidth="0dp"
-                android:layout_marginBottom="20dp">
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="@color/card_bg"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="6dp"
+                    app:strokeWidth="0dp"
+                    android:layout_marginBottom="20dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="20dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/title_input_kesehatan"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/primary_dark_green"
+                            android:layout_marginBottom="20dp"/>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/label_nama_lengkap"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_marginBottom="15dp"
+                            app:hintTextColor="@color/primary_dark_green"
+                            app:boxStrokeColor="@color/primary_dark_green"
+                            android:textColorHint="@color/black">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etInputName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="textPersonName"
+                                android:textColor="@color/black"
+                                android:textStyle="bold"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:baselineAligned="false"
+                            android:layout_marginBottom="15dp">
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginEnd="5dp"
+                                android:hint="@string/label_berat_badan"
+                                app:boxStrokeColor="@color/primary_dark_green"
+                                app:hintTextColor="@color/primary_dark_green"
+                                android:textColorHint="@color/black"
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/etWeight"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:inputType="numberDecimal"
+                                    android:textColor="@color/black"
+                                    android:textStyle="bold" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginStart="5dp"
+                                android:hint="@string/label_tinggi_badan"
+                                app:boxStrokeColor="@color/primary_dark_green"
+                                app:hintTextColor="@color/primary_dark_green"
+                                android:textColorHint="@color/black"
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/etHeight"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:inputType="number"
+                                    android:textColor="@color/black"
+                                    android:textStyle="bold" />
+                            </com.google.android.material.textfield.TextInputLayout>
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/label_gender"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:layout_marginBottom="5dp"/>
+
+                        <RadioGroup
+                            android:id="@+id/rgGender"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginBottom="15dp">
+                            <RadioButton android:id="@+id/rbPria" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/label_pria" android:buttonTint="@color/primary_dark_green" android:textColor="@color/black" android:textStyle="bold" android:checked="true"/>
+                            <RadioButton android:id="@+id/rbWanita" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/label_wanita" android:buttonTint="@color/primary_dark_green" android:textColor="@color/black" android:textStyle="bold" android:layout_marginStart="30dp"/>
+                        </RadioGroup>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/label_frekuensi_olahraga"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:layout_marginBottom="5dp"/>
+
+                        <Spinner
+                            android:id="@+id/spAktivitas"
+                            android:layout_width="match_parent"
+                            android:layout_height="55dp"
+                            android:layout_marginBottom="15dp"
+                            android:background="@drawable/spinner_background"
+                            android:padding="10dp" />
+
+                        <CheckBox
+                            android:id="@+id/cbAgree"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/label_agreement"
+                            android:buttonTint="@color/primary_dark_green"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:layout_marginBottom="20dp"/>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/bg_light_green"
+                            android:layout_marginBottom="20dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/label_pilih_umur"
+                            android:textSize="14sp"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"/>
+
+                        <SeekBar
+                            android:id="@+id/sbUmur"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:max="100"
+                            android:progress="20"
+                            android:progressTint="@color/primary_green"
+                            android:thumbTint="@color/primary_green"
+                            android:layout_marginTop="10dp"/>
+
+                        <TextView
+                            android:id="@+id/tvUmurDisplay"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:text="20 Tahun"
+                            android:textSize="24sp"
+                            android:textColor="@color/primary_dark_green"
+                            android:textStyle="bold"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="20dp"
+                            tools:text="20 Tahun"/>
+
+                        <ProgressBar
+                            android:id="@+id/pbSaving"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:indeterminate="true"
+                            android:visibility="gone"
+                            android:progressTint="@color/primary_green"
+                            android:layout_marginBottom="15dp"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <Button
+                                android:id="@+id/btnReset"
+                                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                                android:layout_width="0dp"
+                                android:layout_height="55dp"
+                                android:layout_weight="1"
+                                android:text="@string/btn_reset"
+                                android:textColor="@color/primary_green"
+                                app:strokeColor="@color/primary_green"
+                                android:layout_marginEnd="8dp"/>
+                            <Button
+                                android:id="@+id/btnSave"
+                                android:layout_width="0dp"
+                                android:layout_height="55dp"
+                                android:layout_weight="1.5"
+                                android:text="@string/btn_simpan"
+                                android:backgroundTint="@color/primary_green"
+                                android:textColor="@color/white"
+                                android:layout_marginStart="8dp"/>
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="20dp">
-
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="10dp">
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="@string/title_input_kesehatan"
-                        android:textSize="18sp"
+                        android:layout_weight="1"
+                        android:text="@string/title_data_tersimpan"
                         android:textStyle="bold"
-                        android:textColor="@color/purple"
-                        android:layout_marginBottom="20dp"/>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Nama Lengkap"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_marginBottom="15dp"
-                        app:hintTextColor="@color/purple"
-                        app:boxStrokeColor="@color/purple"
-                        android:textColorHint="#999999">
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/etInputName"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="textPersonName"
-                            android:textColor="#333333"/>
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:baselineAligned="false"
-                        android:layout_marginBottom="15dp">
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:layout_marginEnd="5dp"
-                            android:hint="Berat (kg)"
-                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/etWeight"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:inputType="numberDecimal" />
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:layout_marginStart="5dp"
-                            android:hint="Tinggi (cm)"
-                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/etHeight"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:inputType="number" />
-                        </com.google.android.material.textfield.TextInputLayout>
-                    </LinearLayout>
-
-                    <TextView
+                        android:textColor="@color/black"/>
+                    <Button
+                        android:id="@+id/btnClearData"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Jenis Kelamin"
-                        android:textColor="#666666"
-                        android:textSize="14sp"
-                        android:layout_marginBottom="5dp"/>
-
-                    <RadioGroup
-                        android:id="@+id/rgGender"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginBottom="15dp">
-                        <RadioButton android:id="@+id/rbPria" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Pria" android:textColor="#444444" android:checked="true"/>
-                        <RadioButton android:id="@+id/rbWanita" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Wanita" android:textColor="#444444" android:layout_marginStart="30dp"/>
-                    </RadioGroup>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Aktivitas Olahraga"
-                        android:textColor="#666666"
-                        android:textSize="14sp"
-                        android:layout_marginBottom="5dp"/>
-
-                    <Spinner
-                        android:id="@+id/spAktivitas"
-                        android:layout_width="match_parent"
-                        android:layout_height="55dp"
-                        android:layout_marginBottom="15dp"
-                        android:background="@drawable/spinner_background"
-                        android:padding="10dp" />
-
-                    <CheckBox
-                        android:id="@+id/cbAgree"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Saya menyatakan data ini benar"
-                        android:textColor="#444444"
-                        android:layout_marginBottom="20dp"/>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="#EEEEEE"
-                        android:layout_marginBottom="20dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Pilih Umur"
-                        android:textSize="14sp"
-                        android:textColor="#666666"
-                        android:textStyle="bold"/>
-
-                    <SeekBar
-                        android:id="@+id/sbUmur"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:max="100"
-                        android:progress="20"
-                        android:progressTint="@color/purple"
-                        android:thumbTint="@color/purple"
-                        android:layout_marginTop="10dp"/>
-
-                    <TextView
-                        android:id="@+id/tvUmurDisplay"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:text="20 Tahun"
-                        android:textSize="24sp"
-                        android:textColor="@color/purple"
-                        android:textStyle="bold"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="20dp"/>
-
-                    <ProgressBar
-                        android:id="@+id/pbSaving"
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:indeterminate="true"
-                        android:visibility="gone"
-                        android:progressTint="@color/purple"
-                        android:layout_marginBottom="15dp"/>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-                        <Button
-                            android:id="@+id/btnReset"
-                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                            android:layout_width="0dp"
-                            android:layout_height="55dp"
-                            android:layout_weight="1"
-                            android:text="RESET"
-                            android:textColor="@color/purple"
-                            app:strokeColor="@color/purple"
-                            android:layout_marginEnd="8dp"/>
-                        <Button
-                            android:id="@+id/btnSave"
-                            android:layout_width="0dp"
-                            android:layout_height="55dp"
-                            android:layout_weight="1.5"
-                            android:text="SIMPAN DATA"
-                            android:backgroundTint="@color/purple"
-                            android:textColor="@color/white"
-                            android:layout_marginStart="8dp"/>
-                    </LinearLayout>
-
+                        android:text="@string/btn_hapus_semua"
+                        android:textColor="@color/red"
+                        android:textSize="12sp"/>
                 </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
 
-            <!-- Card Tabel Penyimpanan -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginBottom="10dp">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Daftar Data Tersimpan"
-                    android:textStyle="bold"
-                    android:textColor="#666666"/>
-                <Button
-                    android:id="@+id/btnClearData"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Hapus Semua"
-                    android:textColor="#F44336"
-                    android:textSize="12sp"/>
-            </LinearLayout>
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardBackgroundColor="#FFFFFF"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="4dp">
-
-                <HorizontalScrollView
+                <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:scrollbars="horizontal">
+                    app:cardBackgroundColor="@color/card_bg"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="4dp">
 
-                    <TableLayout
-                        android:id="@+id/tableData"
-                        android:layout_width="wrap_content"
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:stretchColumns="1">
+                        android:scrollbars="horizontal">
 
-                        <!-- Header Tabel -->
-                        <TableRow
-                            android:background="#F0F2F5"
-                            android:padding="12dp">
-                            <TextView
-                                android:text="No"
-                                android:textStyle="bold"
-                                android:textColor="@color/purple"
-                                android:padding="8dp"/>
-                            <TextView
-                                android:text="Nama"
-                                android:textStyle="bold"
-                                android:textColor="@color/purple"
-                                android:padding="8dp"
-                                android:minWidth="130dp"/>
-                            <TextView
-                                android:text="Gender"
-                                android:textStyle="bold"
-                                android:textColor="@color/purple"
-                                android:padding="8dp"
-                                android:minWidth="80dp"/>
-                            <TextView
-                                android:text="BMI"
-                                android:textStyle="bold"
-                                android:textColor="@color/purple"
-                                android:padding="8dp"
-                                android:minWidth="60dp"/>
-                            <TextView
-                                android:text="Kategori"
-                                android:textStyle="bold"
-                                android:textColor="@color/purple"
-                                android:padding="8dp"
-                                android:minWidth="120dp"/>
-                            <TextView
-                                android:text="Umur"
-                                android:textStyle="bold"
-                                android:textColor="@color/purple"
-                                android:padding="8dp"/>
-                        </TableRow>
-                    </TableLayout>
-                </HorizontalScrollView>
-            </com.google.android.material.card.MaterialCardView>
+                        <TableLayout
+                            android:id="@+id/tableData"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp"
+                            android:background="@color/white"
+                            android:stretchColumns="1">
 
-        </LinearLayout>
+                            <!-- Header Tabel -->
+                            <TableRow
+                                android:background="@color/surface_green"
+                                android:padding="12dp">
+                                <TextView
+                                    android:text="@string/header_no"
+                                    android:textStyle="bold"
+                                    android:textColor="@color/primary_dark_green"
+                                    android:padding="8dp"/>
+                                <TextView
+                                    android:text="@string/header_nama"
+                                    android:textStyle="bold"
+                                    android:textColor="@color/primary_dark_green"
+                                    android:padding="8dp"
+                                    android:minWidth="130dp"/>
+                                <TextView
+                                    android:text="@string/header_gender"
+                                    android:textStyle="bold"
+                                    android:textColor="@color/primary_dark_green"
+                                    android:padding="8dp"
+                                    android:minWidth="80dp"/>
+                                <TextView
+                                    android:text="@string/header_bmi"
+                                    android:textStyle="bold"
+                                    android:textColor="@color/primary_dark_green"
+                                    android:padding="8dp"
+                                    android:minWidth="60dp"/>
+                                <TextView
+                                    android:text="@string/header_status"
+                                    android:textStyle="bold"
+                                    android:textColor="@color/primary_dark_green"
+                                    android:padding="8dp"
+                                    android:minWidth="120dp"/>
+                                <TextView
+                                    android:text="@string/header_umur"
+                                    android:textStyle="bold"
+                                    android:textColor="@color/primary_dark_green"
+                                    android:padding="8dp"/>
+                            </TableRow>
+                        </TableLayout>
+                    </HorizontalScrollView>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <!-- SEARCH CONTAINER -->
+            <LinearLayout
+                android:id="@+id/containerSearch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="@color/card_bg"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="6dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="24dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/title_pencarian_sehat"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/primary_dark_green"
+                            android:layout_marginBottom="24dp"/>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:hint="@string/hint_search_google"
+                            app:startIconDrawable="@android:drawable/ic_menu_search"
+                            app:boxStrokeColor="@color/primary_green"
+                            app:hintTextColor="@color/primary_green"
+                            android:layout_marginBottom="20dp">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etSearchQuery"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/black" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <Button
+                            android:id="@+id/btnDoSearch"
+                            android:layout_width="match_parent"
+                            android:layout_height="56dp"
+                            android:text="@string/btn_cari_sekarang"
+                            android:backgroundTint="@color/primary_green"
+                            android:textColor="@color/white"
+                            android:textStyle="bold"
+                            app:cornerRadius="12dp"/>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <!-- PROFILE CONTAINER -->
+            <LinearLayout
+                android:id="@+id/containerProfile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="@color/card_bg"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="6dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="20dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/title_profil_saya"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/primary_dark_green"
+                            android:layout_marginBottom="20dp"/>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="12dp"
+                            android:hint="@string/label_nama_lengkap"
+                            app:boxStrokeColor="@color/primary_green"
+                            app:hintTextColor="@color/primary_green"
+                            android:enabled="false">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etProfName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/black"
+                                android:textStyle="bold"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="12dp"
+                            android:hint="@string/label_phone"
+                            app:boxStrokeColor="@color/primary_green"
+                            app:hintTextColor="@color/primary_green">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etProfPhone"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="phone"
+                                android:textColor="@color/black"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="12dp"
+                            android:hint="@string/label_alamat"
+                            app:boxStrokeColor="@color/primary_green"
+                            app:hintTextColor="@color/primary_green">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etProfAlamat"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="textPostalAddress"
+                                android:textColor="@color/black"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginEnd="4dp"
+                                android:layout_marginBottom="12dp"
+                                android:hint="@string/label_kelurahan"
+                                app:boxStrokeColor="@color/primary_green"
+                                app:hintTextColor="@color/primary_green">
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/etProfKel"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/black"/>
+                            </com.google.android.material.textfield.TextInputLayout>
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginStart="4dp"
+                                android:layout_marginBottom="12dp"
+                                android:hint="@string/label_kecamatan"
+                                app:boxStrokeColor="@color/primary_green"
+                                app:hintTextColor="@color/primary_green">
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/etProfKec"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/black"/>
+                            </com.google.android.material.textfield.TextInputLayout>
+                        </LinearLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="20dp"
+                            android:hint="@string/label_kota"
+                            app:boxStrokeColor="@color/primary_green"
+                            app:hintTextColor="@color/primary_green">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etProfKota"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/black"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <Button
+                            android:id="@+id/btnSaveProfile"
+                            android:layout_width="match_parent"
+                            android:layout_height="56dp"
+                            android:text="@string/btn_update_profil"
+                            android:backgroundTint="@color/primary_green"
+                            android:textColor="@color/white"
+                            android:textStyle="bold"
+                            app:cornerRadius="12dp"/>
+
+                        <Button
+                            android:id="@+id/btnLogout"
+                            style="@style/Widget.MaterialComponents.Button.TextButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="LOGOUT AKUN"
+                            android:textColor="@color/red"/>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+        </FrameLayout>
     </ScrollView>
 
 </RelativeLayout>

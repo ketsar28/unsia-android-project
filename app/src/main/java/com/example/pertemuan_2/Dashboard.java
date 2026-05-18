@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -42,6 +43,22 @@ public class Dashboard extends AppCompatActivity {
     private TableLayout tableData;
     private int dataCount = 0;
 
+    // Navigation and Containers
+    private LinearLayout btnNavHome, btnNavSearch, btnNavProfile;
+    private LinearLayout containerHome, containerSearch, containerProfile;
+    private android.widget.ImageView ivNavHome, ivNavSearch, ivNavProfile;
+    private TextView tvNavHome, tvNavSearch, tvNavProfile;
+
+    // Search Tab Views
+    private EditText etSearchQuery;
+    private Button btnDoSearch;
+
+    // Profile Tab Views
+    private EditText etProfName, etProfPhone, etProfAlamat, etProfKel, etProfKec, etProfKota;
+    private Button btnSaveProfile, btnLogout;
+
+    private String initialPhone, initialAlamat, initialKel, initialKec, initialKota;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +71,7 @@ public class Dashboard extends AppCompatActivity {
             return insets;
         });
 
-        // Inisialisasi View
+        // Inisialisasi View Home
         tvWelcome = findViewById(R.id.tvWelcome);
         tvUserRole = findViewById(R.id.tvUserRole);
         sbUmur = findViewById(R.id.sbUmur);
@@ -71,9 +88,54 @@ public class Dashboard extends AppCompatActivity {
         spAktivitas = findViewById(R.id.spAktivitas);
         tableData = findViewById(R.id.tableData);
 
+        // Inisialisasi Navigation & Containers
+        btnNavHome = findViewById(R.id.btnNavHome);
+        btnNavSearch = findViewById(R.id.btnNavSearch);
+        btnNavProfile = findViewById(R.id.btnNavProfile);
+        containerHome = findViewById(R.id.containerHome);
+        containerSearch = findViewById(R.id.containerSearch);
+        containerProfile = findViewById(R.id.containerProfile);
+        ivNavHome = findViewById(R.id.ivNavHome);
+        ivNavSearch = findViewById(R.id.ivNavSearch);
+        ivNavProfile = findViewById(R.id.ivNavProfile);
+        tvNavHome = findViewById(R.id.tvNavHome);
+        tvNavSearch = findViewById(R.id.tvNavSearch);
+        tvNavProfile = findViewById(R.id.tvNavProfile);
+
+        // Inisialisasi Search Views
+        etSearchQuery = findViewById(R.id.etSearchQuery);
+        btnDoSearch = findViewById(R.id.btnDoSearch);
+
+        // Inisialisasi Profile Views
+        etProfName = findViewById(R.id.etProfName);
+        etProfPhone = findViewById(R.id.etProfPhone);
+        etProfAlamat = findViewById(R.id.etProfAlamat);
+        etProfKel = findViewById(R.id.etProfKel);
+        etProfKec = findViewById(R.id.etProfKec);
+        etProfKota = findViewById(R.id.etProfKota);
+        btnSaveProfile = findViewById(R.id.btnSaveProfile);
+        btnLogout = findViewById(R.id.btnLogout);
+
         // Setup Spinner Aktivitas Olahraga
-        String[] daftarAktivitas = {"Jarang (Sedenter)", "Ringan (1-3 hari/minggu)", "Sedang (3-5 hari/minggu)", "Berat (6-7 hari/minggu)", "Atlet (Sangat Berat)"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, daftarAktivitas);
+        ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(this,
+                android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.aktivitas_array)) {
+            @Override
+            public View getView(int position, View convertView, android.view.ViewGroup parent) {
+                View v = super.getView(position, convertView, parent);
+                ((TextView) v).setTextColor(ContextCompat.getColor(getContext(), R.color.black));
+                ((TextView) v).setTypeface(null, android.graphics.Typeface.BOLD);
+                return v;
+            }
+
+            @Override
+            public View getDropDownView(int position, View convertView, android.view.ViewGroup parent) {
+                View v = super.getDropDownView(position, convertView, parent);
+                v.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.surface_green));
+                ((TextView) v).setTextColor(ContextCompat.getColor(getContext(), R.color.black));
+                ((TextView) v).setTypeface(null, android.graphics.Typeface.BOLD);
+                return v;
+            }
+        };
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spAktivitas.setAdapter(adapter);
 
@@ -83,12 +145,13 @@ public class Dashboard extends AppCompatActivity {
         if (username == null) username = "User";
         tvWelcome.setText(getString(R.string.welcome_message, username));
         tvUserRole.setText(role);
+        etProfName.setText(username);
 
         // 2. Logika SeekBar (Umur Dinamis)
         sbUmur.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                tvUmurDisplay.setText(progress + " Tahun");
+                tvUmurDisplay.setText(getString(R.string.format_umur_display, progress));
             }
             @Override public void onStartTrackingTouch(SeekBar seekBar) {}
             @Override public void onStopTrackingTouch(SeekBar seekBar) {}
@@ -101,12 +164,12 @@ public class Dashboard extends AppCompatActivity {
             String heightStr = etHeight.getText().toString().trim();
 
             if (namaRaw.isEmpty() || weightStr.isEmpty() || heightStr.isEmpty()) {
-                Toast.makeText(this, getString(R.string.error_empty_fields), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.msg_error_empty), Toast.LENGTH_SHORT).show();
                 return;
             }
 
             if (!cbAgree.isChecked()) {
-                Toast.makeText(this, "Mohon centang pernyataan kebenaran data!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.error_agreement), Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -144,45 +207,175 @@ public class Dashboard extends AppCompatActivity {
             cbAgree.setChecked(false);
             sbUmur.setProgress(20);
             spAktivitas.setSelection(0);
-            tvUmurDisplay.setText("20 Tahun");
+            tvUmurDisplay.setText(getString(R.string.format_umur_display, 20));
         });
 
-        // 5. Implicit Intent: Search info kesehatan
-        findViewById(R.id.btnSearch).setOnClickListener(v -> {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/search?q=tips+hidup+sehat+bmi"));
-            startActivity(intent);
-        });
-
-        // Logout
-        findViewById(R.id.btnProfile).setOnClickListener(v -> finish());
-
-        // 6. Logika Hapus Semua Data
+        // 5. Logika Hapus Semua Data
         btnClearData.setOnClickListener(v -> {
             tableData.removeAllViews();
             dataCount = 0;
             addTableHeader();
             Toast.makeText(this, getString(R.string.data_cleared), Toast.LENGTH_SHORT).show();
         });
+
+        // 6. Logika Navigasi Tab
+        btnNavHome.setOnClickListener(v -> setActiveTab("home"));
+        btnNavSearch.setOnClickListener(v -> setActiveTab("search"));
+        btnNavProfile.setOnClickListener(v -> setActiveTab("profile"));
+
+        // 7. Logika Search Google
+        btnDoSearch.setOnClickListener(v -> {
+            String query = etSearchQuery.getText().toString().trim();
+            if (query.isEmpty()) {
+                Toast.makeText(this, getString(R.string.msg_error_empty), Toast.LENGTH_SHORT).show();
+            } else {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/search?q=" + query));
+                startActivity(intent);
+            }
+        });
+
+        // 8. Logika Profile
+        loadProfileData();
+        setupProfileChangeWatcher();
+        btnSaveProfile.setOnClickListener(v -> saveProfileData());
+        btnLogout.setOnClickListener(v -> {
+            finish();
+            Toast.makeText(this, "Logged Out", Toast.LENGTH_SHORT).show();
+        });
     }
 
+    private void setActiveTab(String tabName) {
+        // Reset Visibilities
+        containerHome.setVisibility(View.GONE);
+        containerSearch.setVisibility(View.GONE);
+        containerProfile.setVisibility(View.GONE);
+
+        // Reset Nav Styles
+        resetNavStyles();
+
+        int activeColor = ContextCompat.getColor(this, R.color.primary_green);
+        int inactiveColor = ContextCompat.getColor(this, R.color.text_secondary);
+
+        if (tabName.equals("home")) {
+            containerHome.setVisibility(View.VISIBLE);
+            ivNavHome.setColorFilter(activeColor);
+            tvNavHome.setTextColor(activeColor);
+            tvNavHome.setTypeface(null, android.graphics.Typeface.BOLD);
+        } else if (tabName.equals("search")) {
+            containerSearch.setVisibility(View.VISIBLE);
+            ivNavSearch.setColorFilter(activeColor);
+            tvNavSearch.setTextColor(activeColor);
+            tvNavSearch.setTypeface(null, android.graphics.Typeface.BOLD);
+        } else if (tabName.equals("profile")) {
+            containerProfile.setVisibility(View.VISIBLE);
+            ivNavProfile.setColorFilter(activeColor);
+            tvNavProfile.setTextColor(activeColor);
+            tvNavProfile.setTypeface(null, android.graphics.Typeface.BOLD);
+        }
+    }
+
+    private void resetNavStyles() {
+        int inactiveColor = ContextCompat.getColor(this, R.color.text_secondary);
+        
+        ivNavHome.setColorFilter(inactiveColor);
+        tvNavHome.setTextColor(inactiveColor);
+        tvNavHome.setTypeface(null, android.graphics.Typeface.NORMAL);
+
+        ivNavSearch.setColorFilter(inactiveColor);
+        tvNavSearch.setTextColor(inactiveColor);
+        tvNavSearch.setTypeface(null, android.graphics.Typeface.NORMAL);
+
+        ivNavProfile.setColorFilter(inactiveColor);
+        tvNavProfile.setTextColor(inactiveColor);
+        tvNavProfile.setTypeface(null, android.graphics.Typeface.NORMAL);
+    }
+
+    private void saveProfileData() {
+        android.content.SharedPreferences prefs = getSharedPreferences("UserProfile", MODE_PRIVATE);
+        android.content.SharedPreferences.Editor editor = prefs.edit();
+        
+        initialPhone = etProfPhone.getText().toString();
+        initialAlamat = etProfAlamat.getText().toString();
+        initialKel = etProfKel.getText().toString();
+        initialKec = etProfKec.getText().toString();
+        initialKota = etProfKota.getText().toString();
+
+        editor.putString("phone", initialPhone);
+        editor.putString("alamat", initialAlamat);
+        editor.putString("kel", initialKel);
+        editor.putString("kec", initialKec);
+        editor.putString("kota", initialKota);
+        editor.apply();
+
+        btnSaveProfile.setEnabled(false);
+        btnSaveProfile.setAlpha(0.5f);
+        Toast.makeText(this, getString(R.string.msg_profil_updated), Toast.LENGTH_SHORT).show();
+    }
+
+    private void loadProfileData() {
+        android.content.SharedPreferences prefs = getSharedPreferences("UserProfile", MODE_PRIVATE);
+        initialPhone = prefs.getString("phone", "");
+        initialAlamat = prefs.getString("alamat", "");
+        initialKel = prefs.getString("kel", "");
+        initialKec = prefs.getString("kec", "");
+        initialKota = prefs.getString("kota", "");
+
+        etProfPhone.setText(initialPhone);
+        etProfAlamat.setText(initialAlamat);
+        etProfKel.setText(initialKel);
+        etProfKec.setText(initialKec);
+        etProfKota.setText(initialKota);
+
+        btnSaveProfile.setEnabled(false);
+        btnSaveProfile.setAlpha(0.5f);
+    }
+
+    private void setupProfileChangeWatcher() {
+        android.text.TextWatcher watcher = new android.text.TextWatcher() {
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
+                checkProfileChanges();
+            }
+            @Override public void afterTextChanged(android.text.Editable s) {}
+        };
+
+        etProfPhone.addTextChangedListener(watcher);
+        etProfAlamat.addTextChangedListener(watcher);
+        etProfKel.addTextChangedListener(watcher);
+        etProfKec.addTextChangedListener(watcher);
+        etProfKota.addTextChangedListener(watcher);
+    }
+
+    private void checkProfileChanges() {
+        boolean hasChanged = !etProfPhone.getText().toString().equals(initialPhone) ||
+                !etProfAlamat.getText().toString().equals(initialAlamat) ||
+                !etProfKel.getText().toString().equals(initialKel) ||
+                !etProfKec.getText().toString().equals(initialKec) ||
+                !etProfKota.getText().toString().equals(initialKota);
+
+        btnSaveProfile.setEnabled(hasChanged);
+        btnSaveProfile.setAlpha(hasChanged ? 1.0f : 0.5f);
+    }
+
+
     private String getBMICategory(double bmi) {
-        if (bmi < 18.5) return "Kurus";
-        else if (bmi < 25) return "Normal";
-        else if (bmi < 30) return "Gemuk";
-        else return "Obesitas";
+        if (bmi < 18.5) return getString(R.string.kurus);
+        else if (bmi < 25) return getString(R.string.normal);
+        else if (bmi < 30) return getString(R.string.gemuk);
+        else return getString(R.string.obesitas);
     }
 
     private void addTableHeader() {
         TableRow headerRow = new TableRow(this);
-        headerRow.setBackgroundColor(android.graphics.Color.parseColor("#F0F2F5"));
+        headerRow.setBackgroundColor(ContextCompat.getColor(this, R.color.surface_green));
         headerRow.setPadding(12, 12, 12, 12);
 
-        headerRow.addView(createTableHeaderCell("No"));
-        headerRow.addView(createTableHeaderCell("Nama"));
-        headerRow.addView(createTableHeaderCell("Gender"));
-        headerRow.addView(createTableHeaderCell("BMI"));
-        headerRow.addView(createTableHeaderCell("Kategori"));
-        headerRow.addView(createTableHeaderCell("Umur"));
+        headerRow.addView(createTableHeaderCell(getString(R.string.header_no)));
+        headerRow.addView(createTableHeaderCell(getString(R.string.header_nama)));
+        headerRow.addView(createTableHeaderCell(getString(R.string.header_gender)));
+        headerRow.addView(createTableHeaderCell(getString(R.string.header_bmi)));
+        headerRow.addView(createTableHeaderCell(getString(R.string.header_status)));
+        headerRow.addView(createTableHeaderCell(getString(R.string.header_umur)));
 
         tableData.addView(headerRow);
     }
@@ -191,7 +384,7 @@ public class Dashboard extends AppCompatActivity {
         TextView tv = new TextView(this);
         tv.setText(text);
         tv.setTypeface(null, android.graphics.Typeface.BOLD);
-        tv.setTextColor(android.graphics.Color.parseColor("#6200EE"));
+        tv.setTextColor(ContextCompat.getColor(this, R.color.primary_dark_green));
         int paddingPx = (int) (8 * getResources().getDisplayMetrics().density);
         tv.setPadding(paddingPx, paddingPx, paddingPx, paddingPx);
         return tv;
@@ -208,7 +401,7 @@ public class Dashboard extends AppCompatActivity {
         row.addView(createTableCell(gender));
         row.addView(createTableCell(bmi));
         row.addView(createTableCell(kategori));
-        row.addView(createTableCell(umur + " th"));
+        row.addView(createTableCell(getString(R.string.format_umur_display, Integer.parseInt(umur))));
 
         tableData.addView(row);
     }
@@ -218,7 +411,7 @@ public class Dashboard extends AppCompatActivity {
         tv.setText(text);
         int paddingPx = (int) (8 * getResources().getDisplayMetrics().density);
         tv.setPadding(paddingPx, paddingPx, paddingPx, paddingPx);
-        tv.setTextColor(android.graphics.Color.parseColor("#333333"));
+        tv.setTextColor(ContextCompat.getColor(this, R.color.text_main));
         tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
         return tv;
     }

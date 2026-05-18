@@ -1,36 +1,116 @@
 <resources>
     <string name="app_name">Health Tracker &amp; BMI</string>
-    <string name="teksLogin">LOGIN HEALTH APP</string>
-    <string name="label_nama_display">Nama User</string>
-    <string name="hint_nama_display">Masukkan nama anda</string>
 
-    <!-- Register -->
-    <string name="title_register">PENDAFTARAN AKUN</string>
-    <string name="hint_nama">Nama Lengkap</string>
-    <string name="hint_email">Email</string>
-    <string name="hint_password">Password</string>
-    <string name="btn_register">DAFTAR AKUN</string>
-    <string name="btn_back_to_login">Kembali ke Login</string>
+    <!-- Login Page -->
+    <string name="login_title">Selamat Datang Kembali</string>
+    <string name="login_subtitle">Pantau kesehatan, mudahkan hidup Anda</string>
+    <string name="label_username">Nama Pengguna</string>
+    <string name="label_password">Kata Sandi</string>
+    <string name="hint_username">Username kamu</string>
+    <string name="hint_password_dots">••••••</string>
+    <string name="label_login_as">Login Sebagai:</string>
+    <string name="label_admin">Admin</string>
+    <string name="label_user">Pengguna</string>
+    <string name="label_remember_me">Ingat Saya</string>
+    <string name="btn_login">MASUK SEKARANG</string>
+    <string name="btn_register_prompt">Belum punya akun? Daftar dulu yuk!</string>
 
-    <!-- Dashboard Strings -->
-    <string name="welcome_message">Halo, %s!</string>
+    <!-- Register Page -->
+    <string name="register_title">Daftar Akun Baru</string>
+    <string name="register_subtitle">Biar makin semangat pantau kesehatan!</string>
+    <string name="label_full_name">Nama Lengkap</string>
+    <string name="label_reg_username">Buat Username (untuk Login)</string>
+    <string name="btn_register_caps">DAFTAR SEKARANG</string>
+    <string name="btn_back_to_login">Dah punya akun? Login aja!</string>
+
+    <!-- Dashboard Navigation & Header -->
+    <string name="label_welcome">Selamat Datang,</string>
+    <string name="label_role_admin">Administrator</string>
+    <string name="label_role_user">Member Sehat</string>
+    <string name="label_home">Beranda</string>
+    <string name="label_search">Cari</string>
+    <string name="label_profile">Profil</string>
+    <string name="desc_home">Icon Home</string>
+    <string name="desc_search">Icon Search</string>
+    <string name="desc_profile">Icon Profile</string>
+
+    <!-- Dashboard Form -->
+    <string name="welcome_message">Halo, %s! 👋</string>
     <string name="title_input_kesehatan">Cek BMI &amp; Kesehatan</string>
-    <string name="label_berat_badan">Berat Badan (kg)</string>
-    <string name="label_tinggi_badan">Tinggi Badan (cm)</string>
+    <string name="label_nama_lengkap">Nama Lengkap</string>
+    <string name="label_berat_badan">Berat (kg)</string>
+    <string name="label_tinggi_badan">Tinggi (cm)</string>
+    <string name="label_gender">Jenis Kelamin</string>
+    <string name="label_pria">Pria</string>
+    <string name="label_wanita">Wanita</string>
     <string name="label_frekuensi_olahraga">Frekuensi Olahraga</string>
+    <string name="label_pilih_umur">Pilih Umur</string>
+    <string name="label_agreement">Saya menyatakan data ini benar</string>
+    <string name="btn_reset">RESET FORM</string>
+    <string name="btn_simpan">HITUNG &amp; SIMPAN</string>
+    <string name="format_umur_display">%d Tahun</string>
 
-    <!-- Table Headers -->
+    <!-- Table Section -->
+    <string name="title_data_tersimpan">Daftar Data Tersimpan</string>
+    <string name="btn_hapus_semua">Hapus Semua</string>
     <string name="header_no">No</string>
     <string name="header_nama">Nama</string>
+    <string name="header_gender">Gender</string>
     <string name="header_bmi">BMI</string>
     <string name="header_status">Kategori</string>
     <string name="header_umur">Umur</string>
-    <string name="header_gender">Gender</string>
 
-    <!-- Validation & Toasts -->
-    <string name="error_empty_fields">Mohon isi semua data!</string>
-    <string name="error_invalid_login">Username atau Password salah!</string>
-    <string name="login_success">Selamat datang, %s!</string>
-    <string name="data_saved">Data kesehatan berhasil dihitung!</string>
-    <string name="data_cleared">Semua riwayat telah dihapus.</string>
+    <string-array name="aktivitas_array">
+        <item>Jarang (Sedenter)</item>
+        <item>Ringan (1-3 hari/minggu)</item>
+        <item>Sedang (3-5 hari/minggu)</item>
+        <item>Berat (6-7 hari/minggu)</item>
+        <item>Atlet (Sangat Berat)</item>
+    </string-array>
+
+    <!-- Interactive Alerts -->
+    <string name="msg_register_success">Berhasil Daftar! 🚀</string>
+    <string name="msg_login_success_admin">Login Admin! 🛠️</string>
+    <string name="msg_login_success_user">Halo, %s! 💪</string>
+    <string name="msg_error_wrong_creds">Login Gagal! 🧐</string>
+    <string name="msg_error_empty">Data Kosong! 📝</string>
+    <string name="msg_error_no_user">User Tak Ada! 😊</string>
+    <string name="error_password_short">Sandi Kependekan! 🔒</string>
+    <string name="error_agreement">Belum Disetujui! ✅</string>
+    <string name="data_saved">Tersimpan! 🎉</string>
+    <string name="data_cleared">Data Dihapus! 🧹</string>
+
+    <!-- Search & Profile -->
+    <string name="title_pencarian_sehat">Cari Info Kesehatan</string>
+    <string name="hint_search_google">Ketik tips kesehatan yang dicari...</string>
+    <string name="btn_cari_sekarang">CARI DI GOOGLE</string>
+    <string name="title_profil_saya">Lengkapi Profil Saya</string>
+    <string name="label_phone">Nomor HP</string>
+    <string name="label_alamat">Alamat Lengkap</string>
+    <string name="label_kelurahan">Kelurahan</string>
+    <string name="label_kecamatan">Kecamatan</string>
+    <string name="label_kota">Kabupaten/Kota</string>
+    <string name="btn_update_profil">SIMPAN PERUBAHAN</string>
+    <string name="msg_profil_updated">Profil berhasil diperbarui! ✅</string>
+    <string name="kurus">Kurus</string>
+    <string name="normal">Normal</string>
+    <string name="gemuk">Gemuk</string>
+    <string name="obesitas">Obesitas</string>
+
+    <!-- Legacy / Compatibility Strings -->
+    <string name="label_nama_display">Nama User</string>
+    <string name="format_umur">%s Tahun</string>
+    <string name="title_input_biodata">Input Biodata</string>
+    <string name="label_nama">Nama Lengkap</string>
+    <string name="label_umur">Umur</string>
+    <string name="label_nilai">Nilai</string>
+    <string name="hint_input_nama">Masukkan nama anda</string>
+    <string name="hint_input_umur">Contoh: 20</string>
+    <string name="hint_input_nilai">Masukkan nilai (0-100)</string>
+    <string name="btn_kirim_data">KIRIM DATA</string>
+    <string name="title_hasil_biodata">Hasil Biodata</string>
+    <string name="label_hasil_nama">NAMA LENGKAP</string>
+    <string name="label_hasil_umur">UMUR</string>
+    <string name="label_hasil_nilai">NILAI AKHIR</string>
+    <string name="btn_kembali">KEMBALI</string>
 </resources>

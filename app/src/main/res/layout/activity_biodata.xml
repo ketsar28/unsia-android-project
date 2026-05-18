@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#F8FAFC"
+    android:background="@color/bg_light_green"
     tools:context=".Biodata">
 
     <!-- ScrollView ditambahkan agar aman di layar kecil dan menjaga padding -->
@@ -27,7 +27,7 @@
                 android:text="@string/title_input_biodata"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                android:textColor="#1E293B"
+                android:textColor="@color/primary_dark_green"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="32dp"/>
 
@@ -48,7 +48,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/label_nama"
-                        android:textColor="#64748B"
+                        android:textColor="@color/text_main"
                         android:textSize="14sp"
                         android:layout_marginBottom="4dp"/>
                     <EditText
@@ -57,22 +57,22 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/hint_input_nama"
                         android:inputType="textPersonName"
-                        android:textColor="#1E293B"
-                        android:textColorHint="#94A3B8"
+                        android:textColor="@color/primary_dark_green"
+                        android:textColorHint="@color/text_hint"
                         android:background="@android:color/transparent"
                         android:paddingVertical="12dp"
                         android:importantForAutofill="no" />
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="#E2E8F0"
+                        android:background="@color/surface_green"
                         android:layout_marginBottom="16dp"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/label_umur"
-                        android:textColor="#64748B"
+                        android:textColor="@color/text_main"
                         android:textSize="14sp"
                         android:layout_marginBottom="4dp"/>
                     <EditText
@@ -81,22 +81,22 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/hint_input_umur"
                         android:inputType="number"
-                        android:textColor="#1E293B"
-                        android:textColorHint="#94A3B8"
+                        android:textColor="@color/primary_dark_green"
+                        android:textColorHint="@color/text_hint"
                         android:background="@android:color/transparent"
                         android:paddingVertical="12dp"
                         android:importantForAutofill="no" />
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="#E2E8F0"
+                        android:background="@color/surface_green"
                         android:layout_marginBottom="16dp"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/label_nilai"
-                        android:textColor="#64748B"
+                        android:textColor="@color/text_main"
                         android:textSize="14sp"
                         android:layout_marginBottom="4dp"/>
                     <EditText
@@ -105,15 +105,15 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/hint_input_nilai"
                         android:inputType="numberDecimal"
-                        android:textColor="#1E293B"
-                        android:textColorHint="#94A3B8"
+                        android:textColor="@color/primary_dark_green"
+                        android:textColorHint="@color/text_hint"
                         android:background="@android:color/transparent"
                         android:paddingVertical="12dp"
                         android:importantForAutofill="no" />
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="#E2E8F0"
+                        android:background="@color/surface_green"
                         android:layout_marginBottom="24dp"/>
 
                     <Button
@@ -124,7 +124,7 @@
                         android:textSize="16sp"
                         android:textStyle="bold"
                         android:textColor="@color/white"
-                        android:backgroundTint="#4F46E5"
+                        android:backgroundTint="@color/primary_green"
                         app:cornerRadius="8dp"/>
 
                 </LinearLayout>
