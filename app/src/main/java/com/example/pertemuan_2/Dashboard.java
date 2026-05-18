@@ -27,16 +27,18 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.Locale;
+
 public class Dashboard extends AppCompatActivity {
 
     private SeekBar sbUmur;
     private TextView tvUmurDisplay, tvWelcome, tvUserRole;
-    private EditText etInputName;
+    private EditText etInputName, etWeight, etHeight;
     private RadioGroup rgGender;
     private CheckBox cbAgree;
     private ProgressBar pbSaving;
     private Button btnSave, btnReset, btnClearData;
-    private Spinner spJurusan;
+    private Spinner spAktivitas;
     private TableLayout tableData;
     private int dataCount = 0;
 
@@ -58,24 +60,22 @@ public class Dashboard extends AppCompatActivity {
         sbUmur = findViewById(R.id.sbUmur);
         tvUmurDisplay = findViewById(R.id.tvUmurDisplay);
         etInputName = findViewById(R.id.etInputName);
+        etWeight = findViewById(R.id.etWeight);
+        etHeight = findViewById(R.id.etHeight);
         rgGender = findViewById(R.id.rgGender);
         cbAgree = findViewById(R.id.cbAgree);
         pbSaving = findViewById(R.id.pbSaving);
         btnSave = findViewById(R.id.btnSave);
         btnReset = findViewById(R.id.btnReset);
         btnClearData = findViewById(R.id.btnClearData);
-        spJurusan = findViewById(R.id.spJurusan);
+        spAktivitas = findViewById(R.id.spAktivitas);
         tableData = findViewById(R.id.tableData);
 
-        // Setup Spinner Jurusan
-        String[] daftarJurusan = {"Informatika", "Sistem Informasi", "Teknik Elektro", "Teknik Sipil", "Manajemen", "Akuntansi", "Ilmu Komunikasi"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, daftarJurusan);
+        // Setup Spinner Aktivitas Olahraga
+        String[] daftarAktivitas = {"Jarang (Sedenter)", "Ringan (1-3 hari/minggu)", "Sedang (3-5 hari/minggu)", "Berat (6-7 hari/minggu)", "Atlet (Sangat Berat)"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, daftarAktivitas);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spJurusan.setAdapter(adapter);
-
-        LinearLayout btnSearch = findViewById(R.id.btnSearch);
-        LinearLayout btnProfile = findViewById(R.id.btnProfile);
-        LinearLayout btnHome = findViewById(R.id.btnHome);
+        spAktivitas.setAdapter(adapter);
 
         // 1. Tampilkan Nama User dari Intent
         String username = getIntent().getStringExtra("EXTRA_USERNAME");
@@ -90,80 +90,86 @@ public class Dashboard extends AppCompatActivity {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 tvUmurDisplay.setText(progress + " Tahun");
             }
-
             @Override public void onStartTrackingTouch(SeekBar seekBar) {}
             @Override public void onStopTrackingTouch(SeekBar seekBar) {}
         });
 
-        // 3. Logika Simpan Data (dengan Loading Interaksi)
+        // 3. Logika Simpan Data & Hitung BMI
         btnSave.setOnClickListener(v -> {
             String namaRaw = etInputName.getText().toString().trim();
-            if (namaRaw.isEmpty()) {
-                Toast.makeText(this, "Nama tidak boleh kosong!", Toast.LENGTH_SHORT).show();
+            String weightStr = etWeight.getText().toString().trim();
+            String heightStr = etHeight.getText().toString().trim();
+
+            if (namaRaw.isEmpty() || weightStr.isEmpty() || heightStr.isEmpty()) {
+                Toast.makeText(this, getString(R.string.error_empty_fields), Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            // Tampilkan Loading
+            if (!cbAgree.isChecked()) {
+                Toast.makeText(this, "Mohon centang pernyataan kebenaran data!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             pbSaving.setVisibility(View.VISIBLE);
             btnSave.setEnabled(false);
-            btnReset.setEnabled(false);
 
-            // Simulasi proses penyimpanan (delay 2 detik)
             new Handler().postDelayed(() -> {
                 pbSaving.setVisibility(View.GONE);
                 btnSave.setEnabled(true);
-                btnReset.setEnabled(true);
                 
-                // Format Nama ke Title Case
+                double weight = Double.parseDouble(weightStr);
+                double heightCm = Double.parseDouble(heightStr);
+                double heightM = heightCm / 100;
+                double bmi = weight / (heightM * heightM);
+                
+                String kategori = getBMICategory(bmi);
                 String namaFormatted = formatTitleCase(namaRaw);
-                int umur = sbUmur.getProgress();
-
-                // Ambil Gender
                 int selectedGenderId = rgGender.getCheckedRadioButtonId();
                 RadioButton rbSelected = findViewById(selectedGenderId);
                 String gender = (rbSelected != null) ? rbSelected.getText().toString() : "-";
-
-                // Ambil Jurusan
-                String prodi = spJurusan.getSelectedItem().toString();
-
-                // Status Persetujuan
-                String status = cbAgree.isChecked() ? "Setuju" : "Tidak Setuju";
-
+                
                 // Tambahkan ke Tabel
-                addDataToTable(namaFormatted, gender, prodi, String.valueOf(umur), status);
+                addDataToTable(namaFormatted, gender, String.format(Locale.US, "%.1f", bmi), kategori, String.valueOf(sbUmur.getProgress()));
 
-                Toast.makeText(this, "Data " + namaFormatted + " Berhasil Disimpan!", Toast.LENGTH_LONG).show();
-            }, 2000);
+                Toast.makeText(this, getString(R.string.data_saved), Toast.LENGTH_SHORT).show();
+            }, 1500);
         });
 
         // 4. Logika Reset
         btnReset.setOnClickListener(v -> {
             etInputName.setText("");
+            etWeight.setText("");
+            etHeight.setText("");
             rgGender.check(R.id.rbPria);
             cbAgree.setChecked(false);
             sbUmur.setProgress(20);
-            spJurusan.setSelection(0);
+            spAktivitas.setSelection(0);
             tvUmurDisplay.setText("20 Tahun");
         });
 
-        // 5. Implicit Intent: Search
-        btnSearch.setOnClickListener(v -> {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com"));
+        // 5. Implicit Intent: Search info kesehatan
+        findViewById(R.id.btnSearch).setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/search?q=tips+hidup+sehat+bmi"));
             startActivity(intent);
         });
 
-        // Log out
-        btnProfile.setOnClickListener(v -> finish());
+        // Logout
+        findViewById(R.id.btnProfile).setOnClickListener(v -> finish());
 
         // 6. Logika Hapus Semua Data
         btnClearData.setOnClickListener(v -> {
-            // Refresh tabel
             tableData.removeAllViews();
             dataCount = 0;
-            // Tambahkan header kembali
             addTableHeader();
-            Toast.makeText(this, "Semua data telah dihapus!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.data_cleared), Toast.LENGTH_SHORT).show();
         });
+    }
+
+    private String getBMICategory(double bmi) {
+        if (bmi < 18.5) return "Kurus";
+        else if (bmi < 25) return "Normal";
+        else if (bmi < 30) return "Gemuk";
+        else return "Obesitas";
     }
 
     private void addTableHeader() {
@@ -172,11 +178,11 @@ public class Dashboard extends AppCompatActivity {
         headerRow.setPadding(12, 12, 12, 12);
 
         headerRow.addView(createTableHeaderCell("No"));
-        headerRow.addView(createTableHeaderCell("Nama Lengkap"));
+        headerRow.addView(createTableHeaderCell("Nama"));
         headerRow.addView(createTableHeaderCell("Gender"));
-        headerRow.addView(createTableHeaderCell("Prodi"));
+        headerRow.addView(createTableHeaderCell("BMI"));
+        headerRow.addView(createTableHeaderCell("Kategori"));
         headerRow.addView(createTableHeaderCell("Umur"));
-        headerRow.addView(createTableHeaderCell("Status"));
 
         tableData.addView(headerRow);
     }
@@ -185,67 +191,50 @@ public class Dashboard extends AppCompatActivity {
         TextView tv = new TextView(this);
         tv.setText(text);
         tv.setTypeface(null, android.graphics.Typeface.BOLD);
-        tv.setTextColor(android.graphics.Color.parseColor("#6200EE")); // purple
+        tv.setTextColor(android.graphics.Color.parseColor("#6200EE"));
         int paddingPx = (int) (8 * getResources().getDisplayMetrics().density);
         tv.setPadding(paddingPx, paddingPx, paddingPx, paddingPx);
         return tv;
     }
 
-    private void addDataToTable(String nama, String gender, String prodi, String umur, String status) {
+    private void addDataToTable(String nama, String gender, String bmi, String kategori, String umur) {
         dataCount++;
-
         TableRow row = new TableRow(this);
         row.setPadding(10, 10, 10, 10);
+        if (dataCount % 2 == 0) row.setBackgroundColor(android.graphics.Color.parseColor("#F9F9F9"));
 
-        // Atur background selang-seling agar mudah dibaca
-        if (dataCount % 2 == 0) {
-            row.setBackgroundColor(android.graphics.Color.parseColor("#F9F9F9"));
-        }
-
-        TextView tvNo = createTableCell(String.valueOf(dataCount));
-        TextView tvNama = createTableCell(nama);
-        TextView tvGender = createTableCell(gender);
-        TextView tvProdi = createTableCell(prodi);
-        TextView tvUmur = createTableCell(umur + " th");
-        TextView tvStatus = createTableCell(status);
-
-        row.addView(tvNo);
-        row.addView(tvNama);
-        row.addView(tvGender);
-        row.addView(tvProdi);
-        row.addView(tvUmur);
-        row.addView(tvStatus);
+        row.addView(createTableCell(String.valueOf(dataCount)));
+        row.addView(createTableCell(nama));
+        row.addView(createTableCell(gender));
+        row.addView(createTableCell(bmi));
+        row.addView(createTableCell(kategori));
+        row.addView(createTableCell(umur + " th"));
 
         tableData.addView(row);
-    }
-
-    private String formatTitleCase(String input) {
-        if (input == null || input.isEmpty()) return "";
-        
-        StringBuilder titleCase = new StringBuilder();
-        boolean nextTitleCase = true;
-
-        for (char c : input.toLowerCase().toCharArray()) {
-            if (Character.isSpaceChar(c)) {
-                nextTitleCase = true;
-            } else if (nextTitleCase) {
-                c = Character.toTitleCase(c);
-                nextTitleCase = false;
-            }
-            titleCase.append(c);
-        }
-
-        return titleCase.toString();
     }
 
     private TextView createTableCell(String text) {
         TextView tv = new TextView(this);
         tv.setText(text);
-        // Gunakan padding yang lebih luas (sekitar 8dp)
         int paddingPx = (int) (8 * getResources().getDisplayMetrics().density);
         tv.setPadding(paddingPx, paddingPx, paddingPx, paddingPx);
         tv.setTextColor(android.graphics.Color.parseColor("#333333"));
         tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
         return tv;
+    }
+
+    private String formatTitleCase(String input) {
+        if (input == null || input.isEmpty()) return "";
+        StringBuilder titleCase = new StringBuilder();
+        boolean nextTitleCase = true;
+        for (char c : input.toLowerCase().toCharArray()) {
+            if (Character.isSpaceChar(c)) nextTitleCase = true;
+            else if (nextTitleCase) {
+                c = Character.toTitleCase(c);
+                nextTitleCase = false;
+            }
+            titleCase.append(c);
+        }
+        return titleCase.toString();
     }
 }

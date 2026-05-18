@@ -1,39 +1,36 @@
 <resources>
-    <string name="app_name">Unsia Android Project</string>
-    <string name="teksLogin">FORM LOGIN</string>
-    <string name="label_nama_display">Nama</string>
+    <string name="app_name">Health Tracker &amp; BMI</string>
+    <string name="teksLogin">LOGIN HEALTH APP</string>
+    <string name="label_nama_display">Nama User</string>
     <string name="hint_nama_display">Masukkan nama anda</string>
 
     <!-- Register -->
-    <string name="title_register">BUAT AKUN BARU</string>
+    <string name="title_register">PENDAFTARAN AKUN</string>
     <string name="hint_nama">Nama Lengkap</string>
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
-    <string name="btn_register">DAFTAR SEKARANG</string>
-    <string name="btn_back_to_login">Sudah punya akun? Login</string>
+    <string name="btn_register">DAFTAR AKUN</string>
+    <string name="btn_back_to_login">Kembali ke Login</string>
 
-    <!-- Biodata Input -->
-    <string name="title_input_biodata">Input Biodata</string>
-    <string name="label_nama">Nama Lengkap</string>
-    <string name="label_umur">Umur</string>
-    <string name="label_nilai">Nilai</string>
-    <string name="hint_input_nama">Masukkan nama anda</string>
-    <string name="hint_input_umur">Contoh: 20</string>
-    <string name="hint_input_nilai">Masukkan nilai (0-100)</string>
-    <string name="btn_kirim_data">KIRIM DATA</string>
+    <!-- Dashboard Strings -->
+    <string name="welcome_message">Halo, %s!</string>
+    <string name="title_input_kesehatan">Cek BMI &amp; Kesehatan</string>
+    <string name="label_berat_badan">Berat Badan (kg)</string>
+    <string name="label_tinggi_badan">Tinggi Badan (cm)</string>
+    <string name="label_frekuensi_olahraga">Frekuensi Olahraga</string>
 
-    <!-- Tampil Biodata -->
-    <string name="title_hasil_biodata">Hasil Biodata</string>
-    <string name="label_hasil_nama">NAMA LENGKAP</string>
-    <string name="label_hasil_umur">UMUR</string>
-    <string name="label_hasil_nilai">NILAI AKHIR</string>
-    <string name="format_umur">%s Tahun</string>
-    <string name="btn_kembali">KEMBALI KE INPUT</string>
-    <string name="welcome_message">Selamat Datang,\n%s</string>
-    <string name="label_prodi">Pilih Program Studi</string>
-    <string name="header_prodi">Prodi</string>
-    <string name="header_status">Status</string>
-    <string name="error_empty_fields">Harap isi semua kolom!</string>
+    <!-- Table Headers -->
+    <string name="header_no">No</string>
+    <string name="header_nama">Nama</string>
+    <string name="header_bmi">BMI</string>
+    <string name="header_status">Kategori</string>
+    <string name="header_umur">Umur</string>
+    <string name="header_gender">Gender</string>
+
+    <!-- Validation & Toasts -->
+    <string name="error_empty_fields">Mohon isi semua data!</string>
     <string name="error_invalid_login">Username atau Password salah!</string>
-    <string name="login_success">Login Berhasil sebagai %s</string>
+    <string name="login_success">Selamat datang, %s!</string>
+    <string name="data_saved">Data kesehatan berhasil dihitung!</string>
+    <string name="data_cleared">Semua riwayat telah dihapus.</string>
 </resources>

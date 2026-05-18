@@ -159,7 +159,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Lengkapi Data Diri"
+                        android:text="@string/title_input_kesehatan"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:textColor="@color/purple"
@@ -182,6 +182,42 @@
                             android:textColor="#333333"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:baselineAligned="false"
+                        android:layout_marginBottom="15dp">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginEnd="5dp"
+                            android:hint="Berat (kg)"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etWeight"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="numberDecimal" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginStart="5dp"
+                            android:hint="Tinggi (cm)"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etHeight"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="number" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -203,13 +239,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Pilih Program Studi"
+                        android:text="Aktivitas Olahraga"
                         android:textColor="#666666"
                         android:textSize="14sp"
                         android:layout_marginBottom="5dp"/>
 
                     <Spinner
-                        android:id="@+id/spJurusan"
+                        android:id="@+id/spAktivitas"
                         android:layout_width="match_parent"
                         android:layout_height="55dp"
                         android:layout_marginBottom="15dp"
@@ -220,7 +256,7 @@
                         android:id="@+id/cbAgree"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Saya setuju dengan syarat &amp; ketentuan"
+                        android:text="Saya menyatakan data ini benar"
                         android:textColor="#444444"
                         android:layout_marginBottom="20dp"/>
 
@@ -351,11 +387,11 @@
                                 android:textColor="@color/purple"
                                 android:padding="8dp"/>
                             <TextView
-                                android:text="Nama Lengkap"
+                                android:text="Nama"
                                 android:textStyle="bold"
                                 android:textColor="@color/purple"
                                 android:padding="8dp"
-                                android:minWidth="150dp"/>
+                                android:minWidth="130dp"/>
                             <TextView
                                 android:text="Gender"
                                 android:textStyle="bold"
@@ -363,7 +399,13 @@
                                 android:padding="8dp"
                                 android:minWidth="80dp"/>
                             <TextView
-                                android:text="Prodi"
+                                android:text="BMI"
+                                android:textStyle="bold"
+                                android:textColor="@color/purple"
+                                android:padding="8dp"
+                                android:minWidth="60dp"/>
+                            <TextView
+                                android:text="Kategori"
                                 android:textStyle="bold"
                                 android:textColor="@color/purple"
                                 android:padding="8dp"
@@ -373,12 +415,6 @@
                                 android:textStyle="bold"
                                 android:textColor="@color/purple"
                                 android:padding="8dp"/>
-                            <TextView
-                                android:text="Status"
-                                android:textStyle="bold"
-                                android:textColor="@color/purple"
-                                android:padding="8dp"
-                                android:minWidth="100dp"/>
                         </TableRow>
                     </TableLayout>
                 </HorizontalScrollView>
