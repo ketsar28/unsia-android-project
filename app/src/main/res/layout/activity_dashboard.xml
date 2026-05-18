@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5"
+    android:background="#F8F9FA"
     tools:context=".Dashboard">
 
-    <!-- Header Section -->
+    <!-- 1. Header Section -->
     <LinearLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="180dp"
         android:background="@color/purple"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="20dp">
 
         <TextView
             android:id="@+id/tvWelcome"
@@ -23,38 +25,29 @@
             android:gravity="center"
             android:text="Selamat Datang,\nAdmin"
             android:textColor="@color/white"
-            android:textSize="28sp"
+            android:textSize="22sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvUserRole"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:text="Administrator"
             android:textColor="#E0E0E0"
-            android:textSize="18sp" />
+            android:textSize="14sp" />
     </LinearLayout>
 
-    <!-- Main Content -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/header"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
-        android:text="Dashboard Content"
-        android:textColor="@color/black"
-        android:textSize="20sp" />
-
-    <!-- Bottom Navigation Bar (Custom UI) -->
+    <!-- 2. Bottom Navigation Bar -->
     <LinearLayout
+        android:id="@+id/bottom_nav"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_alignParentBottom="true"
         android:background="@color/white"
-        android:elevation="10dp"
-        android:orientation="horizontal">
+        android:elevation="15dp"
+        android:orientation="horizontal"
+        android:baselineAligned="false">
 
         <LinearLayout
             android:id="@+id/btnHome"
@@ -66,18 +59,19 @@
             android:foreground="?attr/selectableItemBackground"
             android:gravity="center"
             android:orientation="vertical">
-
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
                 android:src="@android:drawable/ic_menu_today"
+                app:tint="@color/purple"
                 android:contentDescription="Home" />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Home"
-                android:textSize="12sp" />
+                android:textColor="@color/purple"
+                android:textSize="12sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
@@ -90,17 +84,17 @@
             android:foreground="?attr/selectableItemBackground"
             android:gravity="center"
             android:orientation="vertical">
-
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
                 android:src="@android:drawable/ic_menu_search"
+                app:tint="#757575"
                 android:contentDescription="Search" />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Search"
+                android:textColor="#757575"
                 android:textSize="12sp" />
         </LinearLayout>
 
@@ -114,20 +108,283 @@
             android:foreground="?attr/selectableItemBackground"
             android:gravity="center"
             android:orientation="vertical">
-
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
                 android:src="@android:drawable/ic_menu_myplaces"
+                app:tint="#757575"
                 android:contentDescription="Profile" />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Profile"
+                android:textColor="#757575"
                 android:textSize="12sp" />
         </LinearLayout>
-
     </LinearLayout>
+
+    <!-- 3. Scrollable Content -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/header"
+        android:layout_above="@id/bottom_nav"
+        android:clipToPadding="false"
+        android:fillViewport="true"
+        android:scrollbars="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp"
+            android:paddingBottom="100dp">
+
+            <!-- Card Utama Form Input -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="#FFFFFF"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="6dp"
+                app:strokeWidth="0dp"
+                android:layout_marginBottom="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Lengkapi Data Diri"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/purple"
+                        android:layout_marginBottom="20dp"/>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Nama Lengkap"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_marginBottom="15dp"
+                        app:hintTextColor="@color/purple"
+                        app:boxStrokeColor="@color/purple"
+                        android:textColorHint="#999999">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etInputName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textPersonName"
+                            android:textColor="#333333"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Jenis Kelamin"
+                        android:textColor="#666666"
+                        android:textSize="14sp"
+                        android:layout_marginBottom="5dp"/>
+
+                    <RadioGroup
+                        android:id="@+id/rgGender"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="15dp">
+                        <RadioButton android:id="@+id/rbPria" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Pria" android:textColor="#444444" android:checked="true"/>
+                        <RadioButton android:id="@+id/rbWanita" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Wanita" android:textColor="#444444" android:layout_marginStart="30dp"/>
+                    </RadioGroup>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Pilih Program Studi"
+                        android:textColor="#666666"
+                        android:textSize="14sp"
+                        android:layout_marginBottom="5dp"/>
+
+                    <Spinner
+                        android:id="@+id/spJurusan"
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:layout_marginBottom="15dp"
+                        android:background="@drawable/spinner_background"
+                        android:padding="10dp" />
+
+                    <CheckBox
+                        android:id="@+id/cbAgree"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Saya setuju dengan syarat &amp; ketentuan"
+                        android:textColor="#444444"
+                        android:layout_marginBottom="20dp"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#EEEEEE"
+                        android:layout_marginBottom="20dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Pilih Umur"
+                        android:textSize="14sp"
+                        android:textColor="#666666"
+                        android:textStyle="bold"/>
+
+                    <SeekBar
+                        android:id="@+id/sbUmur"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:max="100"
+                        android:progress="20"
+                        android:progressTint="@color/purple"
+                        android:thumbTint="@color/purple"
+                        android:layout_marginTop="10dp"/>
+
+                    <TextView
+                        android:id="@+id/tvUmurDisplay"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:text="20 Tahun"
+                        android:textSize="24sp"
+                        android:textColor="@color/purple"
+                        android:textStyle="bold"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="20dp"/>
+
+                    <ProgressBar
+                        android:id="@+id/pbSaving"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:indeterminate="true"
+                        android:visibility="gone"
+                        android:progressTint="@color/purple"
+                        android:layout_marginBottom="15dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <Button
+                            android:id="@+id/btnReset"
+                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                            android:layout_width="0dp"
+                            android:layout_height="55dp"
+                            android:layout_weight="1"
+                            android:text="RESET"
+                            android:textColor="@color/purple"
+                            app:strokeColor="@color/purple"
+                            android:layout_marginEnd="8dp"/>
+                        <Button
+                            android:id="@+id/btnSave"
+                            android:layout_width="0dp"
+                            android:layout_height="55dp"
+                            android:layout_weight="1.5"
+                            android:text="SIMPAN DATA"
+                            android:backgroundTint="@color/purple"
+                            android:textColor="@color/white"
+                            android:layout_marginStart="8dp"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Card Tabel Penyimpanan -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="10dp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Daftar Data Tersimpan"
+                    android:textStyle="bold"
+                    android:textColor="#666666"/>
+                <Button
+                    android:id="@+id/btnClearData"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hapus Semua"
+                    android:textColor="#F44336"
+                    android:textSize="12sp"/>
+            </LinearLayout>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="#FFFFFF"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="4dp">
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="horizontal">
+
+                    <TableLayout
+                        android:id="@+id/tableData"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:stretchColumns="1">
+
+                        <!-- Header Tabel -->
+                        <TableRow
+                            android:background="#F0F2F5"
+                            android:padding="12dp">
+                            <TextView
+                                android:text="No"
+                                android:textStyle="bold"
+                                android:textColor="@color/purple"
+                                android:padding="8dp"/>
+                            <TextView
+                                android:text="Nama Lengkap"
+                                android:textStyle="bold"
+                                android:textColor="@color/purple"
+                                android:padding="8dp"
+                                android:minWidth="150dp"/>
+                            <TextView
+                                android:text="Gender"
+                                android:textStyle="bold"
+                                android:textColor="@color/purple"
+                                android:padding="8dp"
+                                android:minWidth="80dp"/>
+                            <TextView
+                                android:text="Prodi"
+                                android:textStyle="bold"
+                                android:textColor="@color/purple"
+                                android:padding="8dp"
+                                android:minWidth="120dp"/>
+                            <TextView
+                                android:text="Umur"
+                                android:textStyle="bold"
+                                android:textColor="@color/purple"
+                                android:padding="8dp"/>
+                            <TextView
+                                android:text="Status"
+                                android:textStyle="bold"
+                                android:textColor="@color/purple"
+                                android:padding="8dp"
+                                android:minWidth="100dp"/>
+                        </TableRow>
+                    </TableLayout>
+                </HorizontalScrollView>
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+    </ScrollView>
 
 </RelativeLayout>

@@ -30,6 +30,9 @@
     <string name="format_umur">%s Tahun</string>
     <string name="btn_kembali">KEMBALI KE INPUT</string>
     <string name="welcome_message">Selamat Datang,\n%s</string>
+    <string name="label_prodi">Pilih Program Studi</string>
+    <string name="header_prodi">Prodi</string>
+    <string name="header_status">Status</string>
     <string name="error_empty_fields">Harap isi semua kolom!</string>
     <string name="error_invalid_login">Username atau Password salah!</string>
     <string name="login_success">Login Berhasil sebagai %s</string>
