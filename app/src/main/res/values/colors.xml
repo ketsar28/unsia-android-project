@@ -1,21 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#000000</color>
+    <color name="black">#1A1D20</color>
     <color name="white">#FFFFFF</color>
-    <color name="red">#850000</color> <!-- Merah Tua untuk Error -->
+    <color name="red">#DC3545</color>
+    <color name="red_light">#FFF0F0</color>
 
-    <!-- Fresh Green Health Theme - Super High Contrast -->
-    <color name="primary_green">#145A32</color> <!-- Hijau Sangat Gelap -->
-    <color name="primary_dark_green">#0B3B17</color>
-    <color name="accent_green">#004D40</color>
-    <color name="bg_light_green">#FFFFFF</color> <!-- Putih Bersih agar Kontras -->
-    <color name="surface_green">#D5F5E3</color>
+    <!-- CarePulse Premium Emerald Theme -->
+    <color name="primary_green">#0F5132</color>
+    <color name="primary_dark_green">#0A3622</color>
+    <color name="accent_green">#198754</color>
+    <color name="bg_light_green">#F0FFF4</color>
+    <color name="surface_green">#D1E7DD</color>
+    <color name="soft_mint">#E8F5E9</color>
 
-    <!-- UI Elements - Pure Black -->
-    <color name="text_main">#000000</color>
-    <color name="text_secondary">#000000</color>
-    <color name="text_hint">#34495E</color>
+    <!-- Amber Warning -->
+    <color name="amber_warning">#FD7E14</color>
+    <color name="amber_light">#FFF3E0</color>
+
+    <!-- UI Elements -->
+    <color name="text_main">#1A1D20</color>
+    <color name="text_secondary">#5F6368</color>
+    <color name="text_hint">#9E9E9E</color>
     <color name="card_bg">#FFFFFF</color>
+    <color name="light_green_bg">#F0FFF4</color>
+    <color name="divider">#E0E0E0</color>
 
-    <color name="light_green_bg">#FFFFFF</color>
+    <!-- BMI Category Colors -->
+    <color name="bmi_underweight">#2196F3</color>
+    <color name="bmi_normal">#198754</color>
+    <color name="bmi_overweight">#FF9800</color>
+    <color name="bmi_obese">#DC3545</color>
+    <color name="bmi_underweight_bg">#E3F2FD</color>
+    <color name="bmi_normal_bg">#D1E7DD</color>
+    <color name="bmi_overweight_bg">#FFF3E0</color>
+    <color name="bmi_obese_bg">#FFF0F0</color>
 </resources>

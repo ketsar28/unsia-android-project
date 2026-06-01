@@ -23,3 +23,6 @@ Thumbs.db
 *.aar
 *.ap_
 *.dex
+
+# Local agent implementation plans & workspace configuration files
+IMPLEMENTATION_PLAN.md
