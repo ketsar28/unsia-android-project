@@ -36,9 +36,13 @@ public class Register extends AppCompatActivity {
         btnDoRegister = findViewById(R.id.btnDoRegister);
         btnBackToLogin = findViewById(R.id.btnBackToLogin);
 
-        // Register button: NO actual registration per UTS instructions
+        // Register button action with professional dialog
         btnDoRegister.setOnClickListener(v -> {
-            Toast.makeText(Register.this, getString(R.string.msg_register_disabled), Toast.LENGTH_SHORT).show();
+            new com.google.android.material.dialog.MaterialAlertDialogBuilder(Register.this)
+                    .setTitle("Pendaftaran Akun")
+                    .setMessage(getString(R.string.msg_register_disabled) + "\n\nSilakan masuk dengan akun demo yang tersedia:\n• Username: user\n• Password: user123\n\nAtau gunakan akun admin:\n• Username: admin\n• Password: admin123")
+                    .setPositiveButton("Mengerti", null)
+                    .show();
         });
 
         // Back to login

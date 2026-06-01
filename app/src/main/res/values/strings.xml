@@ -55,6 +55,7 @@
     <string name="menu_beranda">Beranda</string>
     <string name="menu_pengumuman">Pengumuman</string>
     <string name="menu_profil">Profil</string>
+    <string name="menu_bmi">Kalkulator</string>
 
     <!-- BMI Fragment -->
     <string name="title_input_kesehatan">Kalkulator Kesehatan BMI</string>
@@ -68,7 +69,7 @@
     <string name="label_pilih_umur">Umur Anda</string>
     <string name="label_agreement">Saya menyatakan data ini benar dan akurat</string>
     <string name="btn_reset">RESET</string>
-    <string name="btn_simpan">HITUNG &amp; SIMPAN</string>
+    <string name="btn_simpan">HITUNG</string>
     <string name="format_umur_display">%d Tahun</string>
     <string name="format_umur">%s Tahun</string>
     <string name="title_data_tersimpan">Riwayat Data</string>
@@ -121,10 +122,25 @@
     <string name="data_saved">Data berhasil disimpan! 🎉</string>
     <string name="data_cleared">Semua riwayat data telah dihapus 🧹</string>
     <string name="msg_access_denied">Akses Ditolak: Hanya Admin yang dapat menghapus data!</string>
-    <string name="msg_register_disabled">Sesuai instruksi UTS, pendaftaran dinonaktifkan. Gunakan akun statis (user/user123) untuk login.</string>
+    <string name="msg_register_disabled">Pendaftaran akun baru saat ini sedang dinonaktifkan. Silakan gunakan akun demo untuk masuk.</string>
     <string name="msg_logout_success">Berhasil keluar akun 👋</string>
     <string name="error_weight_range">Berat badan harus di antara 20–250 kg!</string>
     <string name="error_height_range">Tinggi badan harus di antara 100–250 cm!</string>
     <string name="error_username_empty">Username tidak boleh kosong!</string>
     <string name="error_password_empty">Kata sandi tidak boleh kosong!</string>
+
+    <!-- Biodata & Tampil Biodata -->
+    <string name="title_input_biodata">Form Input Biodata</string>
+    <string name="label_nama">Nama Lengkap</string>
+    <string name="hint_input_nama">Masukkan nama lengkap</string>
+    <string name="label_umur">Umur (Tahun)</string>
+    <string name="hint_input_umur">Masukkan umur Anda</string>
+    <string name="label_nilai">Nilai</string>
+    <string name="hint_input_nilai">Masukkan nilai</string>
+    <string name="btn_kirim_data">KIRIM DATA</string>
+    <string name="title_hasil_biodata">Hasil Biodata</string>
+    <string name="label_hasil_nama">NAMA LENGKAP</string>
+    <string name="label_hasil_umur">UMUR</string>
+    <string name="label_hasil_nilai">NILAI</string>
+    <string name="btn_kembali">KEMBALI KE FORM</string>
 </resources>

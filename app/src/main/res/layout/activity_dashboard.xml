@@ -28,7 +28,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Care"
-                android:textColor="@color/text_secondary"
+                android:textColor="@color/primary_dark_green"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -91,14 +91,14 @@
                 android:layout_height="28dp"
                 android:src="@android:drawable/ic_menu_today"
                 app:tint="@color/primary_green"
-                android:contentDescription="Menu 1" />
+                android:contentDescription="@string/menu_beranda" />
 
             <TextView
                 android:id="@+id/tvNavHome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="Menu 1"
+                android:text="@string/menu_beranda"
                 android:textColor="@color/primary_green"
                 android:textSize="12sp"
                 android:textStyle="bold" />
@@ -125,14 +125,14 @@
                 android:layout_height="28dp"
                 android:src="@android:drawable/ic_menu_edit"
                 app:tint="@color/text_secondary"
-                android:contentDescription="Menu 2" />
+                android:contentDescription="@string/menu_bmi" />
 
             <TextView
                 android:id="@+id/tvNavSearch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="Menu 2"
+                android:text="@string/menu_bmi"
                 android:textColor="@color/text_secondary"
                 android:textSize="12sp" />
 
@@ -158,14 +158,14 @@
                 android:layout_height="28dp"
                 android:src="@android:drawable/ic_menu_myplaces"
                 app:tint="@color/text_secondary"
-                android:contentDescription="Menu 3" />
+                android:contentDescription="@string/menu_profil" />
 
             <TextView
                 android:id="@+id/tvNavProfile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="Menu 3"
+                android:text="@string/menu_profil"
                 android:textColor="@color/text_secondary"
                 android:textSize="12sp" />
 

@@ -49,9 +49,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:alpha="0.6"
+                    android:textColor="@color/text_secondary"
                     android:text="@string/home_login_success"
-                    android:textSize="12sp" />
+                    android:textSize="13sp" />
 
             </LinearLayout>
 
@@ -92,15 +92,16 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:alpha="0.6"
+                    android:textColor="@color/text_secondary"
                     android:text="@string/home_status_label"
-                    android:textSize="12sp" />
+                    android:textSize="13sp" />
 
                 <TextView
                     android:id="@+id/tvHomeRole"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Role"
+                    android:textColor="@color/primary_dark_green"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -144,10 +145,10 @@
             android:id="@+id/tvAccessDesc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:alpha="0.7"
+            android:textColor="@color/text_main"
             android:padding="16dp"
             android:text="Info"
-            android:textSize="13sp" />
+            android:textSize="14sp" />
 
     </com.google.android.material.card.MaterialCardView>
 
@@ -213,8 +214,8 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="@string/menu_kelola_pengguna"
-                            android:textColor="@color/black"
-                            android:textSize="10sp"
+                            android:textColor="@color/primary_dark_green"
+                            android:textSize="12sp"
                             android:textStyle="bold" />
 
                     </LinearLayout>
@@ -253,8 +254,8 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="@string/menu_data_master"
-                            android:textColor="@color/black"
-                            android:textSize="10sp"
+                            android:textColor="@color/primary_dark_green"
+                            android:textSize="12sp"
                             android:textStyle="bold" />
 
                     </LinearLayout>
@@ -293,8 +294,8 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="@string/menu_laporan"
-                            android:textColor="@color/black"
-                            android:textSize="10sp"
+                            android:textColor="@color/primary_dark_green"
+                            android:textSize="12sp"
                             android:textStyle="bold" />
 
                     </LinearLayout>
@@ -333,8 +334,8 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="@string/menu_pengaturan"
-                            android:textColor="@color/black"
-                            android:textSize="10sp"
+                            android:textColor="@color/primary_dark_green"
+                            android:textSize="12sp"
                             android:textStyle="bold" />
 
                     </LinearLayout>
@@ -373,8 +374,8 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="@string/menu_notifikasi"
-                            android:textColor="@color/black"
-                            android:textSize="10sp"
+                            android:textColor="@color/primary_dark_green"
+                            android:textSize="12sp"
                             android:textStyle="bold" />
 
                     </LinearLayout>
@@ -413,8 +414,8 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="@string/menu_bantuan"
-                            android:textColor="@color/black"
-                            android:textSize="10sp"
+                            android:textColor="@color/primary_dark_green"
+                            android:textSize="12sp"
                             android:textStyle="bold" />
 
                     </LinearLayout>
@@ -463,8 +464,8 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="@string/menu_beranda"
-                            android:textColor="@color/black"
-                            android:textSize="10sp"
+                            android:textColor="@color/primary_dark_green"
+                            android:textSize="12sp"
                             android:textStyle="bold" />
 
                     </LinearLayout>
@@ -503,8 +504,8 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="@string/menu_pengumuman"
-                            android:textColor="@color/black"
-                            android:textSize="10sp"
+                            android:textColor="@color/primary_dark_green"
+                            android:textSize="12sp"
                             android:textStyle="bold" />
 
                     </LinearLayout>
@@ -543,8 +544,8 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="@string/menu_profil"
-                            android:textColor="@color/black"
-                            android:textSize="10sp"
+                            android:textColor="@color/primary_dark_green"
+                            android:textSize="12sp"
                             android:textStyle="bold" />
 
                     </LinearLayout>
@@ -583,7 +584,8 @@
                         android:layout_marginTop="8dp"
                         android:gravity="center"
                         android:text="Note"
-                        android:textSize="13sp"
+                        android:textColor="@color/primary_dark_green"
+                        android:textSize="14sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -591,10 +593,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:alpha="0.6"
                         android:gravity="center"
                         android:text="Description"
-                        android:textSize="11sp" />
+                        android:textColor="@color/text_secondary"
+                        android:textSize="12sp" />
 
                 </LinearLayout>
 

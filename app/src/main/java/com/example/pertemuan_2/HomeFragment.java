@@ -93,33 +93,33 @@ public class HomeFragment extends Fragment {
 
     private void setupAdminMenuListeners() {
         cvMenuKelola.setOnClickListener(v -> showAdminDialog("Kelola Pengguna",
-                "Daftar Pengguna Aktif:\n\n1. Andi Pratama \u2014 Status: Aktif\n2. Budi Santoso \u2014 Status: Aktif\n3. Citra Dewi \u2014 Status: Ditangguhkan\n\nTotal: 3 pengguna terdaftar."));
+                "Daftar Pengguna Aktif:\n\n1. Andi Pratama (Aktif)\n2. Budi Santoso (Aktif)\n3. Citra Dewi (Ditangguhkan)"));
         cvMenuData.setOnClickListener(v -> showAdminDialog("Data Master",
-                "Statistik Data Master:\n\n\u2022 Jumlah Data Kesehatan: 12 entri\n\u2022 Kategori Terbanyak: Normal (45%)\n\u2022 Rata-rata Umur Pengguna: 28 Tahun\n\nData terakhir diperbarui hari ini."));
+                "Statistik Data Master:\n\n\u2022 Total Data Kesehatan: 12 Entri\n\u2022 Kategori Terbanyak: Normal (45%)\n\u2022 Rata-rata Umur: 28 Tahun"));
         cvMenuLaporan.setOnClickListener(v -> showAdminDialog("Laporan Sistem",
-                "Ringkasan Laporan:\n\n\uD83D\uDCCA Total Kalkulasi BMI: 15 kali\n\uD83D\uDCC8 Rata-rata BMI Seluruh Pengguna: 22.4 (Normal)\n\uD83C\uDFCB\uFE0F Aktivitas Terpopuler: Sedang (3-5 hari/minggu)\n\nSemua data berjalan dengan baik."));
+                "Ringkasan Laporan:\n\n\uD83D\uDCCA Total Kalkulasi: 15 kali\n\uD83D\uDCC8 Rata-rata BMI: 22.4 (Normal)\n\uD83C\uDFCB\uFE0F Aktivitas Terpopuler: Sedang"));
         cvMenuPengaturan.setOnClickListener(v -> showAdminDialog("Pengaturan Sistem",
-                "Konfigurasi Sistem:\n\n\uD83D\uDD10 Autentikasi: Aktif (Static Credentials)\n\uD83C\uDFA8 Tema Aplikasi: CarePulse Emerald\n\uD83D\uDCF1 Versi Aplikasi: 1.0 (Build UTS)\n\uD83D\uDDC4\uFE0F Penyimpanan: SharedPreferences (Lokal)"));
+                "Konfigurasi Aplikasi:\n\n\uD83D\uDD10 Autentikasi: Aktif (Static Credentials)\n\uD83C\uDFA8 Tema: CarePulse Emerald\n\uD83D\uDCF1 Versi: 1.0.0 (Production)"));
         cvMenuNotifikasi.setOnClickListener(v -> showAdminDialog("Kirim Notifikasi",
-                "Pesan Notifikasi Terbaru:\n\n\uD83D\uDCE2 \"Jaga kesehatan, rutin berolahraga!\"\n\uD83D\uDCE2 \"Pemeriksaan BMI rutin sangat penting.\"\n\nNotifikasi berhasil dikirim ke semua pengguna."));
-        cvMenuBantuan.setOnClickListener(v -> showAdminDialog("Pusat Bantuan Admin",
-                "Panduan Admin:\n\n1. Kelola Pengguna: Lihat & atur status akun.\n2. Data Master: Pantau statistik kesehatan.\n3. Laporan: Analisis data BMI seluruh pengguna.\n4. Pengaturan: Konfigurasi sistem aplikasi.\n\nHubungi developer untuk bantuan teknis."));
+                "Notifikasi Terkirim:\n\n\uD83D\uDCE2 \"Jaga kesehatan dan rutin berolahraga!\"\n\uD83D\uDCE2 \"Pemeriksaan BMI rutin sangat penting.\""));
+        cvMenuBantuan.setOnClickListener(v -> showAdminDialog("Pusat Bantuan",
+                "Panduan Fitur:\n\n1. Kelola Pengguna: Atur status akun.\n2. Data Master: Pantau statistik.\n3. Laporan: Analisis BMI.\n4. Pengaturan: Konfigurasi sistem."));
     }
 
     private void setupUserMenuListeners() {
         String[] healthTips = {
-                "\uD83D\uDCA7 Minum minimal 8 gelas air putih per hari untuk menjaga hidrasi tubuh.",
-                "\uD83C\uDFC3 Berjalan kaki 30 menit setiap hari dapat mengurangi risiko penyakit jantung.",
-                "\uD83E\uDD57 Konsumsi 5 porsi buah dan sayuran setiap hari untuk nutrisi optimal.",
-                "\uD83D\uDE34 Tidur 7-9 jam per malam penting untuk pemulihan tubuh dan pikiran.",
-                "\uD83E\uDDD8 Luangkan 10 menit per hari untuk meditasi guna mengurangi stres."
+                "\uDCA7 Minum minimal 8 gelas air putih per hari untuk menjaga hidrasi tubuh.",
+                "\uDFC3 Berjalan kaki 30 menit setiap hari dapat mengurangi risiko penyakit jantung.",
+                "\uE957 Konsumsi 5 porsi buah dan sayuran setiap hari untuk nutrisi optimal.",
+                "\uDE34 Tidur 7-9 jam per malam penting untuk pemulihan tubuh dan pikiran.",
+                "\uDDD8 Luangkan 10 menit per hari untuk meditasi guna mengurangi stres."
         };
         cvMenuBeranda.setOnClickListener(v -> {
             String tip = healthTips[(int) (Math.random() * healthTips.length)];
             showUserDialog("Tips Kesehatan Harian", tip);
         });
         cvMenuPengumuman.setOnClickListener(v -> showUserDialog("Pengumuman",
-                "\uD83D\uDCE2 Pengumuman dari Admin:\n\n\"Jaga kesehatan Anda! Rutin cek BMI dan konsultasi dengan ahli gizi untuk pola makan yang lebih baik.\"\n\nDiposting oleh: Administrator"));
+                "\uDCE2 Pengumuman dari Admin:\n\n\"Jaga kesehatan Anda! Rutin cek BMI dan konsultasi dengan ahli gizi untuk pola makan yang lebih baik.\"\n\nDiposting oleh: Administrator"));
         cvMenuProfil.setOnClickListener(v -> {
             if (getActivity() instanceof Dashboard) {
                 Toast.makeText(getContext(), "Navigasi ke halaman Profil...", Toast.LENGTH_SHORT).show();
@@ -129,8 +129,8 @@ public class HomeFragment extends Fragment {
 
     private void showAdminDialog(String title, String message) {
         if (getContext() == null) return;
-        new AlertDialog.Builder(getContext())
-                .setTitle("\uD83D\uDEE0\uFE0F " + title)
+        new com.google.android.material.dialog.MaterialAlertDialogBuilder(getContext())
+                .setTitle("\u2699\uFE0F " + title)
                 .setMessage(message)
                 .setPositiveButton("Tutup", null)
                 .show();
@@ -138,7 +138,7 @@ public class HomeFragment extends Fragment {
 
     private void showUserDialog(String title, String message) {
         if (getContext() == null) return;
-        new AlertDialog.Builder(getContext())
+        new com.google.android.material.dialog.MaterialAlertDialogBuilder(getContext())
                 .setTitle("\uD83D\uDC9A " + title)
                 .setMessage(message)
                 .setPositiveButton("Mengerti", null)
