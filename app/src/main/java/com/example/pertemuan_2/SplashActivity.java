@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,13 +28,11 @@ public class SplashActivity extends AppCompatActivity {
 
         // Inisialisasi views untuk animasi premium
         LinearLayout centerContent = findViewById(R.id.centerContent);
-        ProgressBar progressBar = findViewById(R.id.progressBar);
         LinearLayout footerContainer = findViewById(R.id.footerContainer);
 
         // Set state awal sebelum animasi dimulai
         centerContent.setAlpha(0f);
         centerContent.setTranslationY(60f); // Geser sedikit ke bawah
-        progressBar.setAlpha(0f);
         footerContainer.setAlpha(0f);
 
         // Jalankan animasi masuk yang halus (Fade In & Slide Up)
@@ -44,12 +41,6 @@ public class SplashActivity extends AppCompatActivity {
                 .translationY(0f)
                 .setDuration(1200)
                 .setInterpolator(new android.view.animation.DecelerateInterpolator())
-                .start();
-
-        progressBar.animate()
-                .alpha(1f)
-                .setStartDelay(500)
-                .setDuration(800)
                 .start();
 
         footerContainer.animate()

@@ -74,18 +74,6 @@
 
     </LinearLayout>
 
-    <!-- Progress Bar -->
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="@android:style/Widget.ProgressBar.Horizontal"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/footerContainer"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="32dp"
-        android:indeterminate="true"
-        android:indeterminateTint="@color/surface_green" />
-
     <!-- Bottom Footer -->
     <LinearLayout
         android:id="@+id/footerContainer"
@@ -100,7 +88,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:alpha="0.7"
-            android:text="@string/splash_univ"
+            android:text="@string/splash_identity"
             android:textColor="@color/white"
             android:textSize="13sp"
             android:fontFamily="sans-serif" />
@@ -110,7 +98,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:alpha="0.5"
-            android:text="@string/splash_course"
+            android:text="@string/splash_univ"
             android:textColor="@color/white"
             android:textSize="12sp"
             android:fontFamily="sans-serif" />

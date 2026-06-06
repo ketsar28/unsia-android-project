@@ -82,6 +82,23 @@ public class Dashboard extends AppCompatActivity {
         });
     }
 
+    public void selectTab(String activeTab) {
+        switch (activeTab) {
+            case "home":
+                loadFragment(new HomeFragment(), "home");
+                updateNavStyles("home");
+                break;
+            case "search":
+                loadFragment(new BmiFragment(), "search");
+                updateNavStyles("search");
+                break;
+            case "profile":
+                loadFragment(new ProfileFragment(), "profile");
+                updateNavStyles("profile");
+                break;
+        }
+    }
+
     private void loadFragment(Fragment fragment, String tag) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()

@@ -26,6 +26,7 @@ public class ProfileFragment extends Fragment {
 
     private String initialPhone = "", initialAlamat = "", initialKel = "", initialKec = "", initialKota = "";
     private String userRole = "";
+    private String loginUsername = "";
 
     @Nullable
     @Override
@@ -48,8 +49,10 @@ public class ProfileFragment extends Fragment {
         if (getActivity() != null && getActivity().getIntent() != null) {
             String username = getActivity().getIntent().getStringExtra("EXTRA_USERNAME");
             userRole = getActivity().getIntent().getStringExtra("EXTRA_ROLE");
+            loginUsername = getActivity().getIntent().getStringExtra("EXTRA_LOGIN_USER");
             if (username == null) username = "User";
             if (userRole == null) userRole = getString(R.string.label_role_user);
+            if (loginUsername == null) loginUsername = "user";
 
             tvProfileUsername.setText(username);
             tvProfileRole.setText(userRole);
@@ -62,7 +65,8 @@ public class ProfileFragment extends Fragment {
         // Load saved profile stat count
         if (getActivity() != null) {
             SharedPreferences statsPrefs = getActivity().getSharedPreferences("BmiStats", Context.MODE_PRIVATE);
-            int count = statsPrefs.getInt("bmi_count", 0);
+            String countKey = "bmi_count_" + loginUsername.toLowerCase();
+            int count = statsPrefs.getInt(countKey, 0);
             tvStatCount.setText(String.valueOf(count));
         }
 
@@ -84,7 +88,7 @@ public class ProfileFragment extends Fragment {
 
     private void saveProfileData() {
         if (getActivity() == null) return;
-        SharedPreferences prefs = getActivity().getSharedPreferences("UserProfile", Context.MODE_PRIVATE);
+        SharedPreferences prefs = getActivity().getSharedPreferences("UserProfile_" + loginUsername.toLowerCase(), Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         initialPhone = etProfPhone.getText().toString();
         initialAlamat = etProfAlamat.getText().toString();
@@ -104,7 +108,7 @@ public class ProfileFragment extends Fragment {
 
     private void loadProfileData() {
         if (getActivity() == null) return;
-        SharedPreferences prefs = getActivity().getSharedPreferences("UserProfile", Context.MODE_PRIVATE);
+        SharedPreferences prefs = getActivity().getSharedPreferences("UserProfile_" + loginUsername.toLowerCase(), Context.MODE_PRIVATE);
         initialPhone = prefs.getString("phone", "");
         initialAlamat = prefs.getString("alamat", "");
         initialKel = prefs.getString("kel", "");

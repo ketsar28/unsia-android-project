@@ -4,8 +4,8 @@
 
     <!-- Splash -->
     <string name="splash_slogan">Your Health, Our Priority</string>
-    <string name="splash_univ">UNIVERSITAS SIBER ASIA</string>
-    <string name="splash_course">Pemrograman Bergerak — IF701</string>
+    <string name="splash_identity">Muhammad Ketsar Ali Abi Wahid - 230401070204</string>
+    <string name="splash_univ">Universitas Siber Asia</string>
 
     <!-- Login -->
     <string name="login_title">Selamat Datang Kembali</string>

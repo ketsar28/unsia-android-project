@@ -4,7 +4,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_light_green"
+    android:background="@drawable/gradient_light_bg"
     android:gravity="center"
     android:orientation="vertical">
 
@@ -63,6 +63,7 @@
 
             <!-- Register Card -->
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/registerCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
@@ -70,6 +71,7 @@
                 app:cardElevation="8dp"
                 app:cardBackgroundColor="@color/card_bg"
                 app:strokeWidth="0dp">
+
 
                 <LinearLayout
                     android:layout_width="match_parent"

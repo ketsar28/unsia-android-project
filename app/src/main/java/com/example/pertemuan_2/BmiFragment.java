@@ -1,5 +1,7 @@
 package com.example.pertemuan_2;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.TypedValue;
@@ -33,7 +35,7 @@ import java.util.Locale;
 public class BmiFragment extends Fragment {
 
     private SeekBar sbUmur;
-    private TextView tvUmurDisplay, tvBmiValue, tvBmiCategory, tvBmiRecommendation;
+    private TextView tvUmurDisplay, tvBmiValue, tvBmiCategory, tvBmiRecommendation, tvBmiTitle;
     private EditText etInputName, etWeight, etHeight;
     private RadioGroup rgGender;
     private CheckBox cbAgree;
@@ -46,6 +48,7 @@ public class BmiFragment extends Fragment {
     private int dataCount = 0;
     private String userRole = "";
     private String userName = "";
+    private String loginUsername = "";
 
     @Nullable
     @Override
@@ -58,6 +61,7 @@ public class BmiFragment extends Fragment {
         tvBmiValue = view.findViewById(R.id.tvBmiValue);
         tvBmiCategory = view.findViewById(R.id.tvBmiCategory);
         tvBmiRecommendation = view.findViewById(R.id.tvBmiRecommendation);
+        tvBmiTitle = view.findViewById(R.id.tvBmiTitle);
         etInputName = view.findViewById(R.id.etInputName);
         etWeight = view.findViewById(R.id.etWeight);
         etHeight = view.findViewById(R.id.etHeight);
@@ -76,8 +80,10 @@ public class BmiFragment extends Fragment {
         if (getActivity() != null && getActivity().getIntent() != null) {
             userRole = getActivity().getIntent().getStringExtra("EXTRA_ROLE");
             userName = getActivity().getIntent().getStringExtra("EXTRA_USERNAME");
+            loginUsername = getActivity().getIntent().getStringExtra("EXTRA_LOGIN_USER");
             if (userRole == null) userRole = "";
             if (userName == null) userName = "User";
+            if (loginUsername == null) loginUsername = "user";
         }
 
         // ROLE-BASED ACCESS CONTROL
@@ -99,6 +105,38 @@ public class BmiFragment extends Fragment {
             cvBmiRestrictedAlert.setVisibility(View.GONE);
             btnClearData.setEnabled(true);
             btnClearData.setOnClickListener(v -> {
+                SharedPreferences prefs = requireContext().getSharedPreferences("BmiPrefs", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = prefs.edit();
+                
+                // Get all usernames to clear their histories
+                java.util.List<String> usernames = new java.util.ArrayList<>();
+                usernames.add("user");
+                usernames.add("admin");
+                
+                SharedPreferences userPrefs = requireContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+                String userList = userPrefs.getString("user_list", "");
+                if (!userList.isEmpty()) {
+                    String[] entries = userList.split("##");
+                    for (String entry : entries) {
+                        String[] parts = entry.split("\\|");
+                        if (parts.length >= 1) {
+                            usernames.add(parts[0].trim().toLowerCase());
+                        }
+                    }
+                }
+                
+                for (String uname : usernames) {
+                    editor.remove("bmi_history_" + uname);
+                }
+                editor.apply();
+                
+                SharedPreferences statsPrefs = requireContext().getSharedPreferences("BmiStats", Context.MODE_PRIVATE);
+                SharedPreferences.Editor statsEditor = statsPrefs.edit();
+                for (String uname : usernames) {
+                    statsEditor.remove("bmi_count_" + uname);
+                }
+                statsEditor.apply();
+
                 tableData.removeAllViews();
                 dataCount = 0;
                 addTableHeader();
@@ -106,6 +144,9 @@ public class BmiFragment extends Fragment {
                 Toast.makeText(getContext(), getString(R.string.data_cleared), Toast.LENGTH_SHORT).show();
             });
         }
+
+        // Load calculation history from SharedPreferences
+        loadHistory();
 
         // Setup Spinner
         ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(requireContext(),
@@ -228,6 +269,24 @@ public class BmiFragment extends Fragment {
                 String gender = (rbSelected != null) ? rbSelected.getText().toString() : "-";
                 int umur = Math.max(sbUmur.getProgress(), 10);
 
+                // Save to SharedPreferences
+                SharedPreferences prefs = requireContext().getSharedPreferences("BmiPrefs", Context.MODE_PRIVATE);
+                String historyKey = "bmi_history_" + loginUsername.toLowerCase();
+                String history = prefs.getString(historyKey, "");
+                String newEntry = namaFormatted + "|" + gender + "|" + String.format(Locale.US, "%.1f", bmi) + "|" + kategori + "|" + umur;
+                if (history.isEmpty()) {
+                    history = newEntry;
+                } else {
+                    history = history + "##" + newEntry;
+                }
+                prefs.edit().putString(historyKey, history).apply();
+
+                // Increment bmi_count in BmiStats
+                SharedPreferences statsPrefs = requireContext().getSharedPreferences("BmiStats", Context.MODE_PRIVATE);
+                String countKey = "bmi_count_" + loginUsername.toLowerCase();
+                int currentCount = statsPrefs.getInt(countKey, 0);
+                statsPrefs.edit().putInt(countKey, currentCount + 1).apply();
+
                 // Show BMI Result Card
                 showBmiResult(bmi, kategori);
 
@@ -298,6 +357,8 @@ public class BmiFragment extends Fragment {
         tvBmiValue.setTextColor(ContextCompat.getColor(requireContext(), textColor));
         tvBmiCategory.setTextColor(ContextCompat.getColor(requireContext(), textColor));
         tvBmiRecommendation.setText(recommendation);
+        tvBmiTitle.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_main));
+        tvBmiRecommendation.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_main));
     }
 
     private String getBMICategory(double bmi) {
@@ -370,5 +431,74 @@ public class BmiFragment extends Fragment {
             titleCase.append(c);
         }
         return titleCase.toString();
+    }
+
+    private java.util.List<String> getAllUsernames() {
+        java.util.List<String> usernames = new java.util.ArrayList<>();
+        usernames.add("user");
+        usernames.add("admin");
+        
+        if (getContext() == null) return usernames;
+        SharedPreferences userPrefs = requireContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+        String userList = userPrefs.getString("user_list", "");
+        if (!userList.isEmpty()) {
+            String[] entries = userList.split("##");
+            for (String entry : entries) {
+                String[] parts = entry.split("\\|");
+                if (parts.length >= 1) {
+                    String uname = parts[0].trim().toLowerCase();
+                    if (!usernames.contains(uname)) {
+                        usernames.add(uname);
+                    }
+                }
+            }
+        }
+        return usernames;
+    }
+
+    private String getAggregatedBmiHistory() {
+        if (getContext() == null) return "";
+        StringBuilder allHistory = new StringBuilder();
+        SharedPreferences bmiPrefs = requireContext().getSharedPreferences("BmiPrefs", Context.MODE_PRIVATE);
+        
+        java.util.List<String> usernames = getAllUsernames();
+        for (String uname : usernames) {
+            String userHistory = bmiPrefs.getString("bmi_history_" + uname, "");
+            if (!userHistory.isEmpty()) {
+                if (allHistory.length() > 0) {
+                    allHistory.append("##");
+                }
+                allHistory.append(userHistory);
+            }
+        }
+        return allHistory.toString();
+    }
+
+    private void loadHistory() {
+        // Clear table except header
+        tableData.removeAllViews();
+        dataCount = 0;
+        addTableHeader();
+
+        if (getContext() == null) return;
+        SharedPreferences prefs = getContext().getSharedPreferences("BmiPrefs", Context.MODE_PRIVATE);
+        
+        String history;
+        if (userRole.equalsIgnoreCase(getString(R.string.label_role_admin))) {
+            history = getAggregatedBmiHistory();
+        } else {
+            String historyKey = "bmi_history_" + loginUsername.toLowerCase();
+            history = prefs.getString(historyKey, "");
+        }
+        
+        if (!history.isEmpty()) {
+            String[] entries = history.split("##");
+            for (String entry : entries) {
+                String[] parts = entry.split("\\|");
+                if (parts.length == 5) {
+                    addDataToTable(parts[0], parts[1], parts[2], parts[3], parts[4]);
+                }
+            }
+        }
     }
 }
